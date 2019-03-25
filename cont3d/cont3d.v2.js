@@ -7,7 +7,12 @@ class Container3d extends HTMLElement{
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML += `
             <div id="cube3d">
-                <slot></sslot>
+                <div id="layer1">
+                    <slot name="layer-1"></slot>
+                </div>
+                <div id="layer2">
+                    <slot name="layer-2"></slot>
+                </div>
             </div>
             <style>
                 :host{
