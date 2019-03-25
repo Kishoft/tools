@@ -50,15 +50,6 @@ class Container3d extends HTMLElement{
                 #cube3d:hover::before{
                     opacity:.7
                 }
-                #layer1, #layer2{
-                    transition: all .2s linear
-                }
-                #cube3d:hover #layer1{
-                    transform: translateZ(20px);
-                }
-                #cube3d:hover #layer1{
-                    transform: translateZ(10px);
-                }
             </style>
         `;
         this.cube = this.shadowRoot.getElementById('cube3d');
