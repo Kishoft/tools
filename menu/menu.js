@@ -47,6 +47,10 @@ class navBar extends HTMLElement {
         #navBarResponsiveContent{
             display:flex;
         }
+        ::slotted(nav){
+            width:100%;
+            display:flex;
+        }
         @media (max-width: 650px){
             #toggle-button {
                 display: inline-flex;
@@ -75,8 +79,6 @@ class navBar extends HTMLElement {
             :host([open]) .barra3 {
                 transform: rotate(45deg) translate(-8px, -8px) ;
             }
-            :host{
-            }
             #navBarResponsiveContent{
                 height:calc(100vh - ${this.barHeight});
                 position:fixed;
@@ -89,6 +91,9 @@ class navBar extends HTMLElement {
             }
             :host([open]) #navBarResponsiveContent{
                 left:0%;
+            }
+            ::slotted(nav){
+                flex-direction: column
             }
         }
         @media (min-width: 650px){
