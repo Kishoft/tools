@@ -23,7 +23,6 @@ body{
 container-3d:hover .adelante{
     transform: translateZ(40px)
 }
-
 container-3d:hover .noTanAdelanteAhRe{
     transform: translateZ(30px)
 }

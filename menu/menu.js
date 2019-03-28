@@ -1,12 +1,14 @@
-class AppMenu extends HTMLElement {
+class navBar extends HTMLElement {
     get open(){ return this.hasAttribute('open') }
     set open(val){
         if(val){ this.setAttribute('open','') }
         else { this.removeAttribute('open') }
     }
+    get barHeight(){ return this.getAttribute('height') || `55px` }
     constructor(){
         super();
         this.open = false;
+        this.barHeight;
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML += `
             <div id="toggle-button">
@@ -17,36 +19,19 @@ class AppMenu extends HTMLElement {
                 </div>
             </div>
             <div id="content">
-                <div id="alwaysOnTopLeft">
-                    <slot name="alwaysOnTopLeft"></slot>
+            <slot name="barBefore"></slot>
+                <div id="navBarResponsiveContent">
+                    <slot></slot>
                 </div>
-                <div id="sideContent">
-                    <slot name="sideContent"></slot>
-                </div>
-                <div id="alwaysOnTopRight">
-                <slot name="alwaysOnTopRight"></slot>
-            </div>
+            <slot name="barAfter"></slot>
             </div>
         <style>
-        #alwaysOnTopLeft, #alwaysOnTopRight{
-            display:flex;
-            align-items:center;
-            justify-content:flex-end;
-        }
-        #sideContent{
-            width:80%
-        }
-        #content{
-            display:flex;
-            height:55px;
-            width:100%;
-            justify-content:space-between
-        }
         :host{
+            display:inline-flex;
             width: 100%;
             z-index: 1001;
+            height:${this.barHeight};
             top: 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         }
         :host([sticky]){
             position: sticky;
@@ -54,16 +39,21 @@ class AppMenu extends HTMLElement {
         :host([fixed]){
             position: fixed;
         }
-        ::slotted(img){
+        #content{
             width:100%;
+            display:flex;
+            justify-content:space-between;
+        }
+        #navBarResponsiveContent{
+            display:flex;
         }
         @media (max-width: 650px){
             #toggle-button {
-                display: inline-block;
+                display: inline-flex;
+                align-self:center;
                 width:35px;
-                height: 39px;
                 cursor: pointer;
-                margin: 6px;
+                margin: 0 8px 0 8px;
                 padding: 0 6px 0 6px;
                 border: 1px solid #e2e1e0;
                 border-radius: 4px;
@@ -86,30 +76,30 @@ class AppMenu extends HTMLElement {
                 transform: rotate(45deg) translate(-8px, -8px) ;
             }
             :host{
-                display:inline-flex;
             }
-            #sideContent{
-                height:100%;
+            #navBarResponsiveContent{
+                height:calc(100vh - ${this.barHeight});
                 position:fixed;
+                width:80%;
                 left:-100%;
-                top:55px;
-                transition: all .3s ease;        
+                top:${this.barHeight};
+                transition: all .3s ease;
+                background-color:black;
+                flex-direction:column;
             }
-            :host([open]) #sideContent{
+            :host([open]) #navBarResponsiveContent{
                 left:0%;
             }
         }
         @media (min-width: 650px){
-            #content{
-                margin:auto;
-                width: 80%;
-            }
-            #alwaysOnTopLeft, #alwaysOnTopRight{
-                width:20%;
+            #navBarResponsiveContent{
+                width: 600px;
             }
         }
     </style>
         `;
+
+        
     }
     toggleOpen(){
         if(this.open){ this.open = false } 
@@ -118,11 +108,11 @@ class AppMenu extends HTMLElement {
     toggleIfOutside(e){
         if(window.matchMedia('(max-width: 650px').matches){
             if(this.open){
-                if(e.target == this || this.contains(e.target)){
-                    if(e.target.tagName == 'A'){ this.toggleOpen() }
-                    return 0;
-                }
-                else{ this.toggleOpen() }
+                //if(e.target == this || this.contains(e.target)){
+                //    if(e.target.tagName == 'A'){ this.toggleOpen() }
+                //    return 0;
+                //}
+                //else{ this.toggleOpen() }
             }
         }
     }
@@ -134,4 +124,10 @@ class AppMenu extends HTMLElement {
         document.removeEventListener('click', this.listener)
     }
 }
-window.customElements.define('app-menu', AppMenu)
+document.body.innerHTML += `
+
+<style>
+    
+</style>
+`
+window.customElements.define('nav-bar', navBar)

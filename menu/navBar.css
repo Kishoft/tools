@@ -1,0 +1,39 @@
+nav-bar{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+nav-bar nav{
+    width: 100%;
+    display: flex;
+}
+nav a, .dropdown > div > a {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    text-decoration: none;
+    position: relative;
+    background-color: aquamarine;
+    height: 55px;
+    flex-wrap:wrap;
+}
+.dropdown > a:focus + nav,
+.dropdown > nav:hover,
+.dropdown a:hover + nav,
+.dropdown > nav:focus-within{
+    height: auto;
+}
+.dropdown{
+    width: 100%;
+}
+.dropdown nav {
+    height: 0;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+@media (max-width: 650px){
+    nav{
+        flex-direction: column
+    }
+}
+@media (min-width: 650px){
+}

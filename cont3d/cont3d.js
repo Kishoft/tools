@@ -18,7 +18,6 @@ class Container3d extends HTMLElement{
                     margin: 20px;
                     perspective: 300px;
                     will-change: transform;
-                    position:relative;
                 }
                 #cube3d{
                     height: 250px;
