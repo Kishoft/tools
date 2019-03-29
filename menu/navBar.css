@@ -26,3 +26,6 @@ nav a {
     overflow: hidden;
     flex-wrap: wrap;
 }
+nav-bar img{
+    width: 250px;
+}

@@ -88,6 +88,7 @@ class navBar extends HTMLElement {
                 transition: all .3s ease;
                 background-color:black;
                 flex-direction:column;
+                overflow:scroll;
             }
             :host([open]) #navBarResponsiveContent{
                 left:0%;
