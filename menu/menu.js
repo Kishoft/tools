@@ -113,11 +113,11 @@ class navBar extends HTMLElement {
     toggleIfOutside(e){
         if(window.matchMedia('(max-width: 650px').matches){
             if(this.open){
-                //if(e.target == this || this.contains(e.target)){
-                //    if(e.target.tagName == 'A'){ this.toggleOpen() }
-                //    return 0;
-                //}
-                //else{ this.toggleOpen() }
+                if(e.target == this || this.contains(e.target)){
+                    if(e.path[1].tagName == 'NAV'){ this.toggleOpen() }
+                    return 0;
+                }
+                else{ this.toggleOpen() }
             }
         }
     }
