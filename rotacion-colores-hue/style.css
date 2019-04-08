@@ -1,0 +1,21 @@
+div{
+    width: 500px;
+    height: 500px;
+}
+@keyframes hue {
+    from {filter: hue-rotate(0deg);}
+    to {filter: hue-rotate(-360deg);}
+}
+.huerot{
+animation: hue 10s infinite linear;
+background-color: #feab3a;
+}
+
+div h1{
+    animation: hue 10s infinite linear;
+    color: #f35626
+}
+.huerotdeg{
+    animation: hue 10s infinite linear;
+    background: linear-gradient(135deg, rgba(254,171,58,1) 0%,rgba(250,143,51,0) 40%,rgba(247,115,45,0) 60%,rgba(243,86,38,1) 100%);
+} 

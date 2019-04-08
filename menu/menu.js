@@ -4,7 +4,7 @@ class navBar extends HTMLElement {
         if(val){ this.setAttribute('open','') }
         else { this.removeAttribute('open') }
     }
-    get barHeight(){ return this.getAttribute('height') || `55px` }
+    get barHeight(){ return this.getAttribute('height') || `3.5em` }
     constructor(){
         super();
         this.open = false;
@@ -88,7 +88,6 @@ class navBar extends HTMLElement {
                 transition: all .3s ease;
                 background-color:black;
                 flex-direction:column;
-                overflow:scroll;
             }
             :host([open]) #navBarResponsiveContent{
                 left:0%;
@@ -133,7 +132,37 @@ class navBar extends HTMLElement {
 document.body.innerHTML += `
 
 <style>
-    
+    nav-bar{
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    nav a {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        width:100%;
+        text-decoration: none;
+        position: relative;
+        background-color: aquamarine;
+        height: 55px;
+        flex-wrap:wrap;
+    }
+    .dropdown > a:focus + nav,
+    .dropdown > nav:hover,
+    .dropdown a:hover + nav,
+    .dropdown > nav:focus-within{
+        height: auto;
+    }
+    .dropdown{
+        width: 100%;
+    }
+    .dropdown nav {
+        height: 0;
+        overflow: hidden;
+        flex-wrap: wrap;
+    }
+    nav-bar img{
+        width: 250px;
+    }
 </style>
 `
 window.customElements.define('nav-bar', navBar)
