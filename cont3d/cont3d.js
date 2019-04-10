@@ -55,9 +55,8 @@ class Container3d extends HTMLElement{
     }
     movement(event){
         requestAnimationFrame(()=>{
-            this.X = (Math.round(((this.clientWidth / 2) - (event.pageX - this.getBoundingClientRect().left)) / (this.clientWidth / 2) * -50) / 100);
-            this.Y = (Math.round(((this.clientHeight / 2) - (event.pageY - this.getBoundingClientRect().top)) / (this.clientHeight / 2) * 50) / 100);
-    
+            this.X = (Math.round(((this.clientWidth / 2) - (event.pageX - this.offsetLeft - this.offsetParent.offsetLeft)) / (this.clientWidth / 2) * -50) / 100);
+            this.Y = (Math.round(((this.clientHeight / 2) - (event.pageY - this.offsetTop - this.offsetParent.offsetTop)) / (this.clientHeight / 2) * 50) / 100);
             this.cube.style['transform'] = `rotateX(${this.Y * 8}deg) rotateY(${(this.X * 8)}deg) translateZ(10px)`;
         })
     }

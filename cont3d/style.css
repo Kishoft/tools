@@ -3,7 +3,7 @@
     padding: 0;
 }
 body{
-    height: 100vh;
+    height: 200vh;
     background: url('image.jpg');
     display:flex;
     align-items: center;
