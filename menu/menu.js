@@ -27,7 +27,7 @@ class navBar extends HTMLElement {
             </div>
         <style>
         :host{
-            display:inline-flex;
+            display:flex;
             width: 100%;
             z-index: 1001;
             height:${this.barHeight};
@@ -53,7 +53,7 @@ class navBar extends HTMLElement {
         }
         @media (max-width: 650px){
             #toggle-button {
-                display: inline-flex;
+                display: flex;
                 align-self:center;
                 width:35px;
                 cursor: pointer;
@@ -142,7 +142,6 @@ document.body.innerHTML += `
         width:100%;
         text-decoration: none;
         position: relative;
-        background-color: aquamarine;
         height: 55px;
         flex-wrap:wrap;
     }
