@@ -11,17 +11,14 @@ class Area3d extends HTMLElement{
             </div>
             <style>
                 :host{
-                    display: inline-flex;
-                    justify-content: center;
-                    flex-wrap: wrap;
                     position: relative;
-                    margin: 20px;
                     perspective: 400px;
                     will-change: transform;
                 }
                 :host > div{
                     width:100%;
                     height:100%;
+                    position:absolute;
                     transform-style: preserve-3d;
                     backface-visibility: hidden;
                     transition: all .2s linear;
