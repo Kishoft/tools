@@ -27,7 +27,6 @@ class Area3d extends HTMLElement{
             </style>
         `;
         this.cube = this.shadowRoot.firstElementChild
-        console.log(this.shadowRoot.styleSheets)
     }
     movement(event){
         requestAnimationFrame(()=>{
@@ -36,15 +35,13 @@ class Area3d extends HTMLElement{
             this.cube.style['transform'] = `rotateX(${this.Y * 8}deg) rotateY(${(this.X * 8)}deg) translateZ(10px)`;
         })
     }
-    turnOffContainer(){
-        requestAnimationFrame(()=>{
-            this.cube.style['transform'] = '';
-        })
-    }
+    turnOffContainer(){ requestAnimationFrame(()=>{ this.cube.style['transform'] = '' }) }
 
     connectedCallback(){
-        this.addEventListener('mousemove', (event) => this.movement(event));
-        this.addEventListener('mouseleave', () => this.turnOffContainer())
+        if (window.matchMedia("(min-width: 650px)").matches) {
+            this.addEventListener('mousemove', (event) => this.movement(event));
+            this.addEventListener('mouseleave', () => this.turnOffContainer())
+        }
     }
 }
 
