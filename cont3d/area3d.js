@@ -1,4 +1,4 @@
-class Container3d extends HTMLElement{
+class Area3d extends HTMLElement{
 
     constructor(){
         super();
@@ -6,8 +6,8 @@ class Container3d extends HTMLElement{
         this.Y
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML += `
-            <div id="cube3d">
-                <slot></sslot>
+            <div>
+                <slot></slot>
             </div>
             <style>
                 :host{
@@ -16,42 +16,21 @@ class Container3d extends HTMLElement{
                     flex-wrap: wrap;
                     position: relative;
                     margin: 20px;
-                    perspective: 300px;
+                    perspective: 400px;
                     will-change: transform;
                 }
-                #cube3d{
-                    height: 250px;
-                    width: 250px;
+                :host > div{
+                    width:100%;
+                    height:100%;
                     transform-style: preserve-3d;
                     backface-visibility: hidden;
                     transition: all .2s linear;
-                    border-radius: 20px;
                     will-change: transform;
-                    padding:10px;
-                    border: 1px solid rgba(96, 5, 255,.60);
-                    z-index: 1001;
-                }
-                #cube3d::before{
-                    content:'';
-                    width:100%;
-                    height:100%;
-                    position:absolute;
-                    top:0;
-                    left:0;
-                    background-color: rgba(96, 5, 255);
-                    border-radius: 20px;
-                    filter: blur(15px);
-                    opacity: .4;
-                    transform: translateZ(-40px) scale(1.2);
-                    transition: all .3s linear;
-                    will-change: transform filter;
-                }
-                #cube3d:hover::before{
-                    opacity:.7
                 }
             </style>
         `;
-        this.cube = this.shadowRoot.getElementById('cube3d');
+        this.cube = this.shadowRoot.firstElementChild
+        console.log(this.shadowRoot.styleSheets)
     }
     movement(event){
         requestAnimationFrame(()=>{
@@ -72,4 +51,4 @@ class Container3d extends HTMLElement{
     }
 }
 
-window.customElements.define('container-3d', Container3d)
+window.customElements.define('area-3d', Object.freeze(Area3d))
