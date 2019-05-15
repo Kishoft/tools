@@ -4,17 +4,26 @@ class Parallax{
     }
 
     constructor(){
+        
         this.parallaxElements = Array.from(document.getElementsByClassName('parallax')).filter( x => x.hasAttribute('data-movementY') || x.hasAttribute('data-movementX'))
-        this.parallaxElements.map(pElement =>{
-            let x = Number(pElement.getAttribute('data-movementX')) || 0;
-            let y = Number(pElement.getAttribute('data-movementY')) || 0;
-            window.addEventListener('scroll', () =>{
-                if( pElement.parentElement.getBoundingClientRect().bottom > 0 ){
-                    requestAnimationFrame(()=>{
-                        Parallax.movement(pElement, x, y)
-                    })
+        this.parallaxElements.map(el =>{
+            let x = Number(el.getAttribute('data-movementX')) || 0;
+            let y = Number(el.getAttribute('data-movementY')) || 0;
+            let listener = () =>{
+                requestAnimationFrame(()=>{
+                    Parallax.movement(el, x, y)
+                })
+            }
+            let observer = new IntersectionObserver((changes)=>{
+                console.log(changes[0].isIntersecting)
+                if(changes[0].isIntersecting){
+                    window.addEventListener('scroll', listener)
+                }
+                else{
+                    window.removeEventListener('scroll', listener);
                 }
             })
+            observer.observe(el);
         })
     }
 }
