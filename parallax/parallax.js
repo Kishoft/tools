@@ -23,7 +23,7 @@ class Parallax{
                     window.removeEventListener('scroll', listener);
                 }
             })
-            observer.observe(el);
+            observer.observe(el)
         })
     }
 }
