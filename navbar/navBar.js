@@ -103,23 +103,19 @@ class navBar extends HTMLElement {
     </style>
         `;
     }
-    toggleOpen(){
-        if(this.open){ this.open = false } 
-        else{ this.open = true }
-    }
     toggleIfOutside(e){
         if(window.matchMedia('(max-width: 650px').matches){
             if(this.open){
                 if(e.target == this || this.contains(e.target)){
-                    if(e.path[1].tagName == 'NAV'){ this.toggleOpen() }
+                    if(e.path[1].tagName == 'NAV'){ this.open = !this.open }
                     return 0;
                 }
-                else{ this.toggleOpen() }
+                else{ this.open = !this.open }
             }
         }
     }
     connectedCallback(){
-        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.toggleOpen());
+        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.open = !this.open);
         document.addEventListener('click', this.listener = (e)=> this.toggleIfOutside(e))
     }
     disconnectedCallback(){

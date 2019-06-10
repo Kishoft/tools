@@ -1,8 +1,13 @@
 class SocialBar extends HTMLElement{
+    static get observedAttributes(){ return ['open'] }
     get open(){ return this.hasAttribute('open') }
     set open(val){
-        if(val){ this.setAttribute('open','') }
-        else { this.removeAttribute('open') }
+        if(val){
+            this.setAttribute('open','')
+        }
+        else {
+            this.removeAttribute('open')
+        }
     }
     constructor(){
         super();
@@ -21,63 +26,52 @@ class SocialBar extends HTMLElement{
             </svg>
             <div>
                 <slot></slot>
-                <a id="toggle-button">AB</a>
+                <a id="toggle-button"><slot name="toggle"></slot></span></a>
             </div>
             <style>
                 :host > div{
                     filter: url(#goo);
                     position: relative;
-                    width: 400px;
-                    height: 400px;
+                    display:grid;
+                    place-items: center;
+                    width:300px;
+                    height:300px;
                 }
+                svg{ display:none }
                 #toggle-button, ::slotted(a){
                     position:absolute;
                     text-decoration: none;
                     width: 80px;
                     height: 80px;
                     line-height: 80px;
-                    left: 50%;
-                    top: 50%;
-                    text-align: center;
                     border-radius: 100%;
                     font-size: 40px;
                 }
                 #toggle-button{
-                    background-color: #f1f1f1;
+                    cursor:pointer;
+                    background-color: var(--color5);
                 }
                 ::slotted(a){
                     transition: all .5s ease;
-                    background: #e97b7a;
+                    color: var(--color3);
+                    background: var(--color1);
                 }
                 ::slotted(a:hover){
-                    background: #f1f1f1;
+                    color: var(--color4);
                 }
             </style>
         `
     }
-    toggleOpen(){
-        if(this.open){ this.open = false; this.contraerEnGringo() } 
-        else{ this.open = true; this.spread() }
-    }
-    toggleIfOutside(e){
-        if(this.open){
-            if(e.target == this || this.contains(e.target)){
-                return 0;
-            }
-            else{ this.toggleOpen() }
-        }
-    }
-    spread(){
+    spreadOut(){
         for (let index = 0; index < this.menuItems.length; index++) {
             let angulo = ((Math.PI - this.openingAngle) / 2) + ((this.openingAngle / (this.menuItems.length - 1)) * index)
             let coseno = Math.cos(angulo) * this.openDistance;
             let seno = Math.sin(angulo) * this.openDistance
             console.log(`Angulo expresado en PI: ${angulo} \n Coseno: ${coseno} \n Seno: ${seno}`);
-            this.menuItems[index].style['transitionDelay'] = `${index/3}s`
             this.menuItems[index].style['transform'] = `translate(${coseno}px, ${seno}px)`
         }
     }
-    contraerEnGringo(){
+    spreadIn(){
         for (let index = 0; index < this.menuItems.length; index++) {
             this.menuItems[index].style['transform'] = `translate(0px, 0px)`
         }
@@ -85,9 +79,12 @@ class SocialBar extends HTMLElement{
     connectedCallback(){
         this.menuItems = this.getElementsByTagName('a');
         this.openingAngle = Math.PI - 0.2;
-        this.openDistance = ((24 * this.menuItems.length ) - this.openingAngle) ;
-        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.toggleOpen());
-        document.addEventListener('click', this.listener = (e)=> this.toggleIfOutside(e))
+        this.openDistance = ((24 * this.menuItems.length ) - this.openingAngle);
+        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.open = !this.open);
+    }
+    attributeChangedCallback(){
+        if(this.open){ this.spreadOut() }
+        else{ this.spreadIn() }
     }
     disconnectedCallback(){
         document.removeEventListener('click', this.listener)
