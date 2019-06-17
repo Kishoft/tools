@@ -18,12 +18,12 @@ class navBar extends HTMLElement {
                     <div class="barra3"></div>
                 </div>
             </div>
-            <div id="content">
-            <slot name="barBefore"></slot>
+            <div id="navBarContent">
+                <slot name="barBefore"></slot>
                 <div id="navBarResponsiveContent">
                     <slot></slot>
                 </div>
-            <slot name="barAfter"></slot>
+                <slot name="barAfter"></slot>
             </div>
         <style>
         :host{
@@ -32,34 +32,39 @@ class navBar extends HTMLElement {
             z-index: 1001;
             height:${this.barHeight};
             top: 0;
-        }
-        :host([sticky]){
-            position: sticky;
+            background-color: #f1f1f1;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.19),
+             0 6px 6px rgba(0,0,0,0.23);
         }
         :host([fixed]){
             position: fixed;
         }
-        #content{
-            width:100%;
+        #navBarContent{
             display:flex;
-            justify-content:space-between;
+            align-items: center;
+            justify-content: space-between;
+            width:90%;
+            margin:auto;
         }
         #navBarResponsiveContent{
             display:flex;
         }
         ::slotted(nav){
-            width:100%;
             display:flex;
+            align-items: center;
         }
         @media (max-width: 650px){
+            :host([sticky]){
+                position: fixed;
+            }
             #toggle-button {
-                display: flex;
+                display: inline-flex;
                 align-self:center;
                 width:35px;
                 cursor: pointer;
                 margin: 0 8px 0 8px;
                 padding: 0 6px 0 6px;
-                border: 1px solid #e2e1e0;
+                border: 1px solid black;
                 border-radius: 4px;
                 box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
             }
@@ -67,8 +72,8 @@ class navBar extends HTMLElement {
                 width: 35px;
                 height: 5px;
                 margin: 6px 0;
+                transition: all .3s ease;
                 background-color: black;
-                transition: all .3s ease
             }
             :host([open]) .barra1 {
                 transform: rotate(-45deg) translate(-9px, 6px) ;
@@ -80,62 +85,75 @@ class navBar extends HTMLElement {
                 transform: rotate(45deg) translate(-8px, -8px) ;
             }
             #navBarResponsiveContent{
-                height:calc(100vh - ${this.barHeight});
                 position:fixed;
-                width:80%;
-                left:-100%;
+                height:calc(100vh - ${this.barHeight});
                 top:${this.barHeight};
-                transition: all .3s ease;
+                left: -100%;
+                width: 80%;
+                transition: all .5s ease;
                 flex-direction:column;
+                background-color: #f1f1f1;
             }
             :host([open]) #navBarResponsiveContent{
-                left:0%;
+                left:0
             }
             ::slotted(nav){
-                flex-direction: column
+                flex-direction: column;
             }
         }
         @media (min-width: 650px){
-            #navBarResponsiveContent{
-                width: 600px;
+            :host([sticky]){
+                position: sticky;
+            }
+            #toggle-button{
+                display:none;
+            }
+            #navBarContent{
             }
         }
     </style>
         `;
     }
+    toggleOpen(){
+        if(this.open){ this.open = false } 
+        else{ this.open = true }
+    }
     toggleIfOutside(e){
-        if(window.matchMedia('(max-width: 650px').matches){
+        if(window.matchMedia('(max-width: 650px)').matches){
             if(this.open){
                 if(e.target == this || this.contains(e.target)){
-                    if(e.path[1].tagName == 'NAV'){ this.open = !this.open }
+                    if(e.path[1].tagName == 'NAV'){ this.toggleOpen() }
                     return 0;
                 }
-                else{ this.open = !this.open }
+                else{ this.toggleOpen() }
             }
         }
     }
     connectedCallback(){
-        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.open = !this.open);
-        document.addEventListener('click', this.listener = (e)=> this.toggleIfOutside(e))
+        this.shadowRoot.getElementById('toggle-button').addEventListener('click', () => this.toggleOpen());
+        document.addEventListener('click', this.listener = (e)=> this.toggleIfOutside(e));
     }
     disconnectedCallback(){
         document.removeEventListener('click', this.listener)
     }
 }
 document.body.innerHTML += `
+
 <style>
-    nav-bar{
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    }
     nav a {
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        width:100%;
+        position:relative;
+        display: inline-flex;
+        padding:15px;
+        margin: 5px;
+        text-align:center;
         text-decoration: none;
-        position: relative;
-        height: 55px;
-        flex-wrap:wrap;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: -.01em;
+        color: blue;
+        transition: 200ms linear
+    }
+    nav a:hover{
     }
     .dropdown > a:focus + nav,
     .dropdown > nav:hover,
@@ -151,10 +169,13 @@ document.body.innerHTML += `
         overflow: hidden;
         flex-wrap: wrap;
     }
-    nav-bar img{
-        width: 250px;
+    nav-bar figure > img{
+        height:45px;
+    }
+    @media (max-width: 650px){
+    }
+    @media (min-width: 650px){
     }
 </style>
 `
-
 window.customElements.define('nav-bar', navBar)

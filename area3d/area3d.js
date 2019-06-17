@@ -19,8 +19,12 @@ class Area3d extends HTMLElement{
                     height:100%;
                     transform-style: preserve-3d;
                     backface-visibility: hidden;
-                    transition: all .2s linear;
                     will-change: transform;
+                    transition: all .2s ease;
+                    border-radius: 25px;
+                }
+                :host > div:hover {
+                    box-shadow: 0 0 15px 1px rgba(0,0,0, .4);
                 }
             </style>
         `;
@@ -33,10 +37,12 @@ class Area3d extends HTMLElement{
             this.cube.style['transform'] = `rotateX(${this.Y * 8}deg) rotateY(${(this.X * 8)}deg) translateZ(10px)`;
         })
     }
-    turnOffContainer(){ requestAnimationFrame(()=>{ this.cube.style['transform'] = '' }) }
+    //turnOnContainer(){ requestAnimationFrame( ()=>{ this.cube.style['box-shadow'] = '0 0 15px 1px rgba(0,0,0, .4)' } )}
+    turnOffContainer(){ requestAnimationFrame(()=>{ this.cube.style['transform'] = 'rotateX(0) rotateY(0) translateZ(0)' }) }
 
     connectedCallback(){
         if (window.matchMedia("(min-width: 650px)").matches) {
+            //this.addEventListener('mouseenter', () => { this.turnOnContainer() })
             this.addEventListener('mousemove', (event) => this.movement(event));
             this.addEventListener('mouseleave', () => this.turnOffContainer())
         }
