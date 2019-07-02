@@ -11,20 +11,6 @@ class navBar extends HTMLElement {
         this.barHeight;
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML += `
-            <div id="toggle-button">
-                <div class="icon-menu">
-                    <div class="barra1"></div>
-                    <div class="barra2"></div>
-                    <div class="barra3"></div>
-                </div>
-            </div>
-            <div id="navBarContent">
-                <slot name="barBefore"></slot>
-                <div id="navBarResponsiveContent">
-                    <slot></slot>
-                </div>
-                <slot name="barAfter"></slot>
-            </div>
         <style>
         :host{
             display:flex;
@@ -32,7 +18,7 @@ class navBar extends HTMLElement {
             z-index: 1001;
             height:${this.barHeight};
             top: 0;
-            background-color: #f1f1f1;
+            background-color: var(--color1);
             box-shadow: 0 10px 15px rgba(0,0,0,0.19),
              0 6px 6px rgba(0,0,0,0.23);
         }
@@ -64,9 +50,8 @@ class navBar extends HTMLElement {
                 cursor: pointer;
                 margin: 0 8px 0 8px;
                 padding: 0 6px 0 6px;
-                border: 1px solid black;
                 border-radius: 4px;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                border: 1px solid black;
             }
             .barra1, .barra2, .barra3 {
                 width: 35px;
@@ -92,7 +77,6 @@ class navBar extends HTMLElement {
                 width: 80%;
                 transition: all .5s ease;
                 flex-direction:column;
-                background-color: #f1f1f1;
             }
             :host([open]) #navBarResponsiveContent{
                 left:0
@@ -108,10 +92,22 @@ class navBar extends HTMLElement {
             #toggle-button{
                 display:none;
             }
-            #navBarContent{
-            }
         }
     </style>
+    <div id="toggle-button">
+        <div class="icon-menu">
+            <div class="barra1"></div>
+            <div class="barra2"></div>
+            <div class="barra3"></div>
+        </div>
+    </div>
+    <div id="navBarContent">
+        <slot name="barBefore"></slot>
+        <div id="navBarResponsiveContent">
+            <slot></slot>
+        </div>
+        <slot name="barAfter"></slot>
+    </div>
         `;
     }
     toggleOpen(){
@@ -140,7 +136,7 @@ class navBar extends HTMLElement {
 document.body.innerHTML += `
 
 <style>
-    nav a {
+    nav a{
         position:relative;
         display: inline-flex;
         padding:15px;
@@ -150,21 +146,31 @@ document.body.innerHTML += `
         font-weight: 700;
         font-size: 13px;
         letter-spacing: -.01em;
-        color: blue;
+        color: var(--color5);
         transition: 200ms linear
     }
     nav a:hover{
+        color: var(--color4);
     }
-    .dropdown > a:focus + nav,
-    .dropdown > nav:hover,
-    .dropdown a:hover + nav,
-    .dropdown > nav:focus-within{
+    nav a::before{
+        content: '';
+        position:absolute;
+        width: 100%;
+        height: 100%;
+        top:0;
+        left:0;
+        background: radial-gradient(ellipse at center, var(--color4) 0%, var(--color5) 100%);
+        opacity: 0;
+        filter: blur(10px);
+        transition: 200ms linear
+    }
+    nav a:hover::before{
+        opacity: .1;
+    }
+    .dropdown:focus-within > nav{
         height: auto;
     }
-    .dropdown{
-        width: 100%;
-    }
-    .dropdown nav {
+    .dropdown nav{
         height: 0;
         overflow: hidden;
         flex-wrap: wrap;
@@ -173,8 +179,20 @@ document.body.innerHTML += `
         height:45px;
     }
     @media (max-width: 650px){
+        .dropdown{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dropdown > nav{
+            display:flex;
+            flex-direction: column;
+        }
     }
     @media (min-width: 650px){
+        .dropdown > nav{
+            position:absolute;
+        }
     }
 </style>
 `
