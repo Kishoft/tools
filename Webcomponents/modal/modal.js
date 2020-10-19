@@ -44,11 +44,11 @@ class Modal extends HTMLElement {
     detectEsc(e){
         if (e.key === "Escape"){ this.remove() }
     }
-    detectIfModal(e){
+    detectModal(e){
         e.path[0] == this ? this.remove() : false;
     }
     connectedCallback(){
-        this.addEventListener('click', (e) => this.detectIfModal(e), false);
+        this.addEventListener('click', (e) => this.detectModal(e), false);
         window.addEventListener('keyup', this.listener = (e) => this.detectEsc(e))
         const buttons = this.getElementsByClassName('close-modal-button')
         for (const button in buttons) { buttons.hasOwnProperty(button) ? buttons[button].addEventListener('click', () => this.remove()) : false }

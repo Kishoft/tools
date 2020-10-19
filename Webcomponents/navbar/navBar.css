@@ -1,0 +1,82 @@
+:host{
+    display:flex;
+    width: 100%;
+    z-index: 1001;
+    height:${this.barHeight};
+    top: 0;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.19),
+     0 6px 6px rgba(0,0,0,0.23);
+}
+:host([fixed]){
+    position: fixed;
+}
+#navBarContent{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width:90%;
+    margin:auto;
+}
+#navBarResponsiveContent{
+    display:flex;
+}
+::slotted(nav){
+    display:flex;
+    align-items: center;
+}
+@media (max-width: 650px){
+    :host([sticky]){
+        position: fixed;
+    }
+    #toggle-button {
+        display: inline-flex;
+        align-self:center;
+        width:35px;
+        cursor: pointer;
+        margin: 0 8px 0 8px;
+        padding: 0 6px 0 6px;
+        border: 1px solid black;
+        border-radius: 4px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    .barra1, .barra2, .barra3 {
+        width: 35px;
+        height: 5px;
+        margin: 6px 0;
+        transition: all .3s ease;
+        background-color: black;
+    }
+    :host([open]) .barra1 {
+        transform: rotate(-45deg) translate(-9px, 6px) ;
+    }
+    :host([open]) .barra2 {
+        opacity: 0;
+    }
+    :host([open]) .barra3 {
+        transform: rotate(45deg) translate(-8px, -8px) ;
+    }
+    #navBarResponsiveContent{
+        position:fixed;
+        top:55px;
+        left: -100%;
+        width: 80%;
+        transition: all .5s ease;
+        flex-direction:column;
+    }
+    :host([open]) #navBarResponsiveContent{
+        left:0
+    }
+    ::slotted(nav){
+        flex-direction: column;
+    }
+}
+@media (min-width: 650px){
+    :host([sticky]){
+        position: sticky;
+    }
+    #toggle-button{
+        display:none;
+    }
+    #navBarContent{
+    }
+}
