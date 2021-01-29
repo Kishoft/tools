@@ -15,12 +15,12 @@ class Loader extends HTMLElement {
                 top:0;
                 left:0;
                 width:100%;
-                height:100%;
+                height:100vh;
                 display:flex;
                 justify-content:center;
                 align-items:center;
                 background-color: white;
-                z-index: 10001;
+                z-index: 9999;
                 transition: all 1s linear;
                 opacity: 1;
             }
@@ -37,10 +37,7 @@ class Loader extends HTMLElement {
         this.remove();
     }
     connectedCallback(){
-        document.addEventListener('loadend', this.listener = this.removeLoader())
-    }
-    disconnectedCallback(){
-        document.removeEventListener('loaded', this.listener)
+        window.addEventListener('load',e => this.removeLoader())
     }
 }
-window.customElements.define('app-loader', Loader)
+window.customElements.define('page-loader', Loader)
