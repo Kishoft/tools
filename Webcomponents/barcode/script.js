@@ -6,6 +6,7 @@ else {
 }
 
 let videoOutput = document.getElementById('camara')
+let imgean = document.getElementById('ean');
 
 function getScreenshot(videoEl, scale) {
     scale = scale || 1;
@@ -21,7 +22,7 @@ function getScreenshot(videoEl, scale) {
 }
 
 
-let barcodeDetector = new BarcodeDetector({ formats: ['code_39', 'codabar', 'ean_13'] });
+let barcodeDetector = new BarcodeDetector({ formats: ['ean_13'] });
 
 BarcodeDetector.getSupportedFormats().then(supportedFormats => {
     supportedFormats.forEach(format => console.log(format));
@@ -32,6 +33,10 @@ BarcodeDetector.getSupportedFormats().then(supportedFormats => {
     }
 
 });
+console.log(imgean)
+barcodeDetector.detect(imgean).then(barcode => {
+    console.log(barcode)
+})
 
 
 navigator.mediaDevices.getUserMedia({
@@ -54,6 +59,6 @@ navigator.mediaDevices.getUserMedia({
             .catch(err => {
                 console.log(err);
             })
-    }, 500)
+    }, 10000)
 })
 .catch(err => console.log(err));
