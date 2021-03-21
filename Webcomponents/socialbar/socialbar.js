@@ -33,7 +33,8 @@ class SocialBar extends HTMLElement{
                     filter: url(#goo);
                     position: relative;
                     display:grid;
-                    place-items:center;
+                    justify-items: center;
+                    align-items: stretch;
                     width:300px;
                     height:200px;
                 }
@@ -50,20 +51,22 @@ class SocialBar extends HTMLElement{
                 #toggle-button{
                     cursor:pointer;
                     transition: .5s linear;
-                    background-color: blue;
+                    color:white;
+                    background: var(--gradient);
                     box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.75);
+                    box-shadow: inset 0px 0px 10px 5px rgba(0,0,0,0.75);
                 }
                 :host([open]) #toggle-button{
                     filter:blur(20px);
                 }
                 ::slotted(a){
                     transition: all .5s ease;
-                    color: white;
-                    background: gray;
+                    color: var(--color3);
+                    background: var(--color1);
                 }
                 ::slotted(a:hover){
-                    color: orangered;
-                    background: brown;
+                    color: var(--color4);
+                    background: var(--color2);
                 }
             </style>
         `
