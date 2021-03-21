@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" accept="image/*" capture="camera" id="camera">
+    <img id="frame">
+    <input type="text" name="" id="resultado" disabled>
+    <script src="//unpkg.com/javascript-barcode-reader"></script>
+    <style>
+        img{
+            width: 250px;
+        }
+    </style>
+    <script>
+        var camera = document.getElementById('camera');
+        var frame = document.getElementById('frame');
+
+        camera.addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            // Do something with the image file.
+            frame.src = URL.createObjectURL(file);
+        });
+        setInterval(() => {
+            javascriptBarcodeReader({
+            /* Image ID || HTML5 Image || HTML5 Canvas || HTML5 Canvas ImageData || Image URL */
+            image: frame,
+            barcode: 'ean-13',
+            // barcodeType: 'industrial',
+            options: {
+                // useAdaptiveThreshold: true
+                // singlePass: true
+            }
+        })
+            .then(code => {
+                document.getElementById("resultado").value = code
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }, 3000)
+        
+    </script>
+    <video id="player" controls autoplay></video>
+    <script>  
+      var player = document.getElementById('player');
+    
+      var handleSuccess = function(stream) {
+        player.srcObject = stream;
+      };
+    
+      navigator.mediaDevices.getUserMedia({video: true})
+          .then(handleSuccess);
+    </script>
+    
+</body>
+
+</html>

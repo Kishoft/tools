@@ -67,7 +67,6 @@ body
     /*align-items: center;*/
     position: absolute;
     border-radius: 50%;
-    transition: all .7s ease;
 }
 #hr::before
 {

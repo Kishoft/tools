@@ -1,0 +1,97 @@
+<div class="centrar">
+    <form id = "formulario">
+        <input list="productos" type="search" id="buscador" name="buscador" placeholder="Nombre del producto">
+        <datalist id="productos"></datalist>
+        <input type="submit" value="Buscar">        
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", e => {
+    setTimeout(()=>{
+            
+        let formulario = document.getElementById('formulario') 
+        let datalist = document.getElementById('productos')
+        let contenedor = document.getElementById('vbid-daf6a-byhlrxds')
+        
+        formulario.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log(e)
+            console.log(formulario["buscador"].value)
+            buscar(formulario["buscador"].value)
+        })
+        
+        function indexar() {
+        contenedor.childNodes[3].children[0].children[2].children[1].children[0].childNodes.forEach(e => {
+            if (e.children) {
+                let elemento = e.children[0].children[0]
+                let elementoId = elemento.attributes['data-self']
+                let titulo = elemento.children[0].children[0].children[0].children[1].children[1].children[0].children[0].children[1].children[1].children[0].textContent.trim()
+                let precio = elemento.children[0].children[0].children[0].children[1].children[1].children[0].children[0].children[1].children[7].children[0].textContent.trim()
+                datalist.innerHTML += `<option value="${titulo}">${elementoId.value}</option>`
+            }
+        })
+    }
+
+    function buscar(parametro) {
+        console.log(contenedor.childNodes[3].children[0].children[2].children[1].children[0].childNodes)
+        contenedor.childNodes[3].children[0].children[2].children[1].children[0].childNodes.forEach(e => {
+            if (e.children) {
+                let elemento = e.children[0]
+                    .children[0]
+                let elementoId = elemento.attributes['data-self']
+                let titulo = elemento.children[0].children[0].children[0].children[1].children[1].children[0].children[0].children[1].children[1].children[0].textContent.trim()
+                let precio = elemento.children[0].children[0].children[0].children[1].children[1].children[0].children[0].children[1].children[7].children[0].textContent.trim()
+                if (titulo.includes(parametro)) {
+                    elemento.scrollIntoView();
+                }
+            }
+        })
+    }
+    setTimeout(()=> indexar(), 1600)
+        
+    }, 1500)
+            
+})
+    
+</script>
+<style>
+.centrar{
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index: 9999;
+}
+#formulario{
+    padding: 5px 5px;
+    background-color: rgba(30, 12, 8, 0.80);;
+    border-radius: 0 0 10px 10px;
+}
+#formulario input {
+    font-family: HelveNueThinNormal;
+    padding: 5px 8px;
+    color: #4e3d29;
+    border: 1px solid gray;
+    font-weight: bolder;
+    position:relative;
+}
+#formulario input[type="search"]{
+    border-radius: 5px 0 0 5px;
+    right:-2px;
+    min-width: 220px;
+}
+#formulario input[type="submit"]{
+    border-radius: 0 5px 5px 0;
+    left:-2px;
+    cursor:pointer;
+    letter-spacing: 0.1em;
+    background-color: #eae0c7;
+}
+html {
+    scroll-behavior: smooth;
+}
+</style>
