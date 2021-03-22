@@ -3,14 +3,13 @@ const { app, BrowserWindow, globalShortcut, shell } = require('electron')
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
-    width: 800,
-    height: 150,
     webPreferences: {
         nodeIntegration: true,
         contextIsolation: false
     },
     frame : false,
-    transparent : true
+    transparent : true,
+    fullscreen : true
   })
 
   // and load the index.html of the app.
