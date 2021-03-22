@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+
+<body>
+    <style>
+        @font-face {
+            font-family: "Montserrat";
+            src: url('Montserrat-Thin.ttf') format("truetype");
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 100;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            height: 100vh;
+            background: transparent;
+        }
+
+        input {
+            display: flex;
+            width: 90%;
+            padding: 16px 24px;
+            font-size: 30px;
+            background: #424242;
+            color: #eaeaea;
+            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+        }
+    </style>
+    <form id="launcher">
+        <input type="text" id="launcherInput" autofocus required>
+    </form>
+    <script>
+        let electron = require('electron');
+        let { spawn } = require('child_process');
+        const util = require('util');
+        const exec = util.promisify(require('child_process').exec);
+        class Launcher {
+            static proccessCommand(text) {
+                let prefix = new String(text).split(" ")[0];
+                let query = new String(text).split(" ");
+                query.shift();
+                query = query.join(" ");
+                query = query.toLowerCase();
+                let querySaniticed = encodeURI(query);
+                let commandToExecute = "";
+                switch (prefix) {
+                    case "g":
+                        commandToExecute = `https://www.google.com/search?q=${querySaniticed}`;
+                        electron.shell.openExternal(commandToExecute).then(() => window.close());
+                        break;
+                    case "w":
+                        commandToExecute = `https://es.wikipedia.org/w/index.php?search=${querySaniticed}`;
+                        electron.shell.openExternal(commandToExecute).then(() => window.close());
+                        break;
+                    case "y":
+                        commandToExecute = `http://www.youtube.com/results?search_query=${querySaniticed}`;
+                        electron.shell.openExternal(commandToExecute).then(() => window.close());
+                        break;
+                    case "f":
+                        commandToExecute = `explorer.exe`;
+                        exec(commandToExecute).then(() => window.close());
+                        break;
+                    case "calc":
+                        commandToExecute = `calc.exe`;
+                        exec(commandToExecute).then(() => window.close());
+                        break;
+                    case "bnet":
+                        commandToExecute = `C:\\Program Files (x86)\\Battle.net\\Battle.net Launcher.exe`;
+                        exec(commandToExecute).then(() => window.close());
+                        break;
+                    default:
+                        window.close()
+                        break;
+                }
+            }
+        }
+        let launcherInput = document.getElementById("launcherInput");
+        launcherInput.addEventListener('keydown', e => {
+            if (e.key === "Enter") {
+                Launcher.proccessCommand(launcherInput.value)
+            }
+            else if(e.key === "Escape"){
+                window.close();
+            }
+        })
+    </script>
+</body>
+
+</html>
