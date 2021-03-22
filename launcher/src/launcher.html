@@ -94,7 +94,11 @@
         }
         let launcher = document.getElementById("launcher");
         let launcherInput = document.getElementById("launcherInput");
-        launcher.addEventListener('click', e => window.close())
+        launcher.addEventListener('click', e => { 
+            console.log(e.target)
+            if(e.target ){
+            } 
+        })
         launcherInput.addEventListener('keydown', e => {
             if (e.key === "Enter") {
                 Launcher.proccessCommand(launcherInput.value)

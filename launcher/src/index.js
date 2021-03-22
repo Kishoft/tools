@@ -7,9 +7,9 @@ function createWindow () {
         nodeIntegration: true,
         contextIsolation: false
     },
-    frame : false,
-    transparent : true,
-    fullscreen : true
+    frame : true,
+    transparent : true
+    
   })
 
   // and load the index.html of the app.
