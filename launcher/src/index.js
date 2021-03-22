@@ -7,8 +7,10 @@ function createWindow () {
         nodeIntegration: true,
         contextIsolation: false
     },
-    frame : true,
-    transparent : true
+    frame : false,
+    transparent : true,
+    fullscreen : true,
+    skipTaskbar: true
     
   })
 

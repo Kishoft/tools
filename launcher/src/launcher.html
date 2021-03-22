@@ -11,7 +11,7 @@
     <style>
         @font-face {
             font-family: "Montserrat";
-            src: url('Montserrat-Thin.ttf') format("truetype");
+            src: url('fonts/Montserrat-Thin.ttf') format("truetype");
         }
         * {
             margin: 0;
@@ -94,9 +94,9 @@
         }
         let launcher = document.getElementById("launcher");
         let launcherInput = document.getElementById("launcherInput");
-        launcher.addEventListener('click', e => { 
-            console.log(e.target)
-            if(e.target ){
+        launcher.addEventListener('click', e => {
+            if(e.target === launcher){
+                window.close()
             } 
         })
         launcherInput.addEventListener('keydown', e => {
