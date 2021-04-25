@@ -109,7 +109,7 @@ function hacerCaptura() {
                     
                     barcodeDetector.detect(imageBitmap)
                         .then(barcodes => {
-                            barcodes.forEach(barcode => console.log(barcode))
+                            barcodes.forEach(barcode => alert(barcode.rawValue))
                             
                         })
                         .finally(() => {
