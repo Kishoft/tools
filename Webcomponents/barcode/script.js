@@ -42,7 +42,8 @@ let barcodeDetector = new BarcodeDetector({
     ]
 });
 
-BarcodeDetector.getSupportedFormats().then(supportedFormats => {
+BarcodeDetector.getSupportedFormats()
+.then(supportedFormats => {
     supportedFormats.forEach(format => console.log(format));
     let supportsEan13 = supportedFormats.includes('ean_13');
     let supportsPDF417 = supportedFormats.includes('pdf417')
