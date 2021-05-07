@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav-bar></nav-bar>
+    <main>
+        <article>
+            <h2>Logical assigment operators - Operadores lógicos de asignación</h2>
+            <dfn>Sirven para asignar variables bajo determinadas condiciones.</dfn>
+            <section>
+                <h3>AND</h3>
+                <p>Si X es verdadero o válido, entonces se le asigna el valor de Y</p>
+                <code>
+                    <pre>
+if(x) {
+    x = y
+}
+
+x && (x = y)
+
+x &&= y
+                    </pre>
+                </code>
+            </section>
+            <section>
+                <h3>OR</h3>
+                <p>Si X es falso o inválido, entonces se le asigna el valor de Y</p>
+                <code>
+                    <pre>
+if(!x) {
+    x = y
+}
+
+x || (x = y)
+
+x ||= y
+                    </pre>
+                </code>
+            </section>
+            <section>
+                <h3>Nullish</h3>
+                <p>Si X es null o Undefined, se le asigna el valor de la derecha</p>
+                <code>
+                    <pre>
+if(x !== null && x !== undefined){
+    x = y
+}
+
+x = x ?? (x = y)
+
+x ??= y
+                    </pre>
+                </code>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>
