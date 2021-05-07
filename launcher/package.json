@@ -138,7 +138,7 @@
     "has-flag": "^4.0.0",
     "has-unicode": "^2.0.1",
     "homedir-polyfill": "^1.0.3",
-    "hosted-git-info": "^2.8.8",
+    "hosted-git-info": "^2.8.9",
     "http-cache-semantics": "^4.1.0",
     "http-signature": "^1.2.0",
     "http2-wrapper": "^1.0.3",
