@@ -71,7 +71,10 @@
                         electron.shell.openExternal(commandToExecute).then(() => window.close());
                         break;
                     case "y":
-                        commandToExecute = `http://www.youtube.com/results?search_query=${querySaniticed}`;
+                        commandToExecute = `https://www.youtube.com/results?search_query=${querySaniticed}`;
+                        if(querySaniticed === ""){
+                            commandToExecute = 'https://www.youtube.com/'
+                        }
                         electron.shell.openExternal(commandToExecute).then(() => window.close());
                         break;
                     case "f":
