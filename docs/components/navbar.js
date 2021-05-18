@@ -86,6 +86,7 @@ class navBar extends HTMLElement {
 
                 <a href="/pages/api/mediaDevices.html">Media Devices</a>
                 <a href="/pages/api/barcodereader.html">Barcode Reader</a>
+                <a href="/pages/api/nfc.html">NFC</a>
                 <a href="/pages/api/geolocation.html">Geolocation</a>
                 <a href="/pages/api/permission.html">Permission</a>
                 <a href="/pages/api/screenwakelock.html">Screen Wake Lock</a>
@@ -113,6 +114,9 @@ class navBar extends HTMLElement {
                 <a href="/pages/api/sse.html">Server Side Events</a>
                 <a href="/pages/api/ws.html">Web Sockets</a>
                 <a href="/pages/api/webgl.html">WebGL</a>
+                <a href="/pages/api/webgpu.html">WebGPU</a>
+                <a href="/pages/api/webhid.html">WebHID API</a>
+                <a href="/pages/api/gamepad.html">Gamepad API</a>
                 
                 
                 <a href="/pages/events/eventemitter.html">Event Emitter (Custom Events)</a>
@@ -144,6 +148,8 @@ class navBar extends HTMLElement {
                 <a href="/pages/elements/video.html">HTML Video</a>
 
                 <a href="/pages/pwa/templateHTML.html">Plantillas HTML</a>
+                <a href="https://supple.com.au/tools/scroll-to-text-fragment-generator-bookmarklet/#:~:text=Scroll%20To%20Text%20Fragment%20is,snippet%20provided%20in%20the%20URL.">Scroll To Text Fragment</a>
+                <a href="/pages/pwa/trustedtypes.html">Trusted Types</a>
                 <a href="/pages/pwa/manifest.html">Manifest JSON</a>
                 <a href="/pages/pwa/meta.html">Meta Tags</a>
                 
