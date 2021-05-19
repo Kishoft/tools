@@ -117,6 +117,7 @@ class navBar extends HTMLElement {
                 <a href="/pages/api/webgpu.html">WebGPU</a>
                 <a href="/pages/api/webhid.html">WebHID API</a>
                 <a href="/pages/api/gamepad.html">Gamepad API</a>
+                <a href="/pages/api/pip.html">Picture in Picture API</a>
                 
                 
                 <a href="/pages/events/eventemitter.html">Event Emitter (Custom Events)</a>
