@@ -111,14 +111,19 @@ class navBar extends HTMLElement {
                 <a href="/pages/api/url.html">URL</a>
                 <a href="/pages/api/webworker.html">Web Workers</a>
                 <a href="/pages/api/serviceworker.html">Service Workers</a>
+                <a href="/pages/api/animationworklet.html">Animation Worklet</a>
+                <a href="/pages/api/paintworklet.html">Paint Worklet</a>
+                <a href="/pages/api/audioworklet.html">Audio Worklet</a>
+                <a href="/pages/api/offscreencanvas.html">Offscreen Canvas</a>
+                <a href="/pages/api/houdini.html">The Houdini</a>
                 <a href="/pages/api/sse.html">Server Side Events</a>
                 <a href="/pages/api/ws.html">Web Sockets</a>
+                <a href="/pages/api/reporting.html">Reporting</a>
                 <a href="/pages/api/webgl.html">WebGL</a>
                 <a href="/pages/api/webgpu.html">WebGPU</a>
-                <a href="/pages/api/webhid.html">WebHID API</a>
-                <a href="/pages/api/gamepad.html">Gamepad API</a>
-                <a href="/pages/api/pip.html">Picture in Picture API</a>
-                
+                <a href="/pages/api/webhid.html">WebHID</a>
+                <a href="/pages/api/gamepad.html">Gamepad</a>
+                <a href="/pages/api/pip.html">Picture in Picture</a>
                 
                 <a href="/pages/events/eventemitter.html">Event Emitter (Custom Events)</a>
                 <a href="/pages/events/keyboard.html">Keyboard</a>
@@ -153,6 +158,7 @@ class navBar extends HTMLElement {
                 <a href="/pages/pwa/trustedtypes.html">Trusted Types</a>
                 <a href="/pages/pwa/manifest.html">Manifest JSON</a>
                 <a href="/pages/pwa/meta.html">Meta Tags</a>
+                <a href="/pages/pwa/link.html">Link Tags</a>
                 
 
                 
