@@ -119,11 +119,13 @@ class navBar extends HTMLElement {
                 <a href="/pages/api/sse.html">Server Side Events</a>
                 <a href="/pages/api/ws.html">Web Sockets</a>
                 <a href="/pages/api/reporting.html">Reporting</a>
-                <a href="/pages/api/webgl.html">WebGL</a>
-                <a href="/pages/api/webgpu.html">WebGPU</a>
-                <a href="/pages/api/webhid.html">WebHID</a>
+                <a href="/pages/api/webgl.html">Web GL</a>
+                <a href="/pages/api/webgpu.html">Web GPU</a>
+                <a href="/pages/api/webhid.html">Web HID</a>
+                <a href="/pages/api/webauthn.html">Web Authn</a>
                 <a href="/pages/api/gamepad.html">Gamepad</a>
                 <a href="/pages/api/pip.html">Picture in Picture</a>
+                <a href="/pages/api/paymenthandler.html">Payment Handler</a>
                 
                 <a href="/pages/events/eventemitter.html">Event Emitter (Custom Events)</a>
                 <a href="/pages/events/keyboard.html">Keyboard</a>
@@ -159,8 +161,6 @@ class navBar extends HTMLElement {
                 <a href="/pages/pwa/manifest.html">Manifest JSON</a>
                 <a href="/pages/pwa/meta.html">Meta Tags</a>
                 <a href="/pages/pwa/link.html">Link Tags</a>
-                
-
                 
             </nav>
         </div>
