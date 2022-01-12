@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-  </div>
+  <article>
+    <h3>Bienvenid@ a WebDocs, una web abierta y llena de documentación para desarrollo web</h3>
+  </article>
 </template>
 
 <script>

@@ -6,8 +6,7 @@
       <div class="toggleBtnLine"></div>
     </div>
     <figure>
-      <img src="../assets/logo.png" alt="Vue logo">
-      <span>WebDocs</span>
+      <img src="@/assets/logo.svg" alt="Vue logo">
     </figure>
     <div class="links" v-bind:class="{ open }">
       <div v-for="route of routes" v-bind:key="route">
@@ -111,7 +110,6 @@ figure{
 }
 
 img{
-  width: 40px;
   height: 40px;
   margin-right: 10px;
 }
