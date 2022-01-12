@@ -5,9 +5,7 @@
       <div class="toggleBtnLine"></div>
       <div class="toggleBtnLine"></div>
     </div>
-    <figure>
       <img src="@/assets/logo.svg" alt="Vue logo">
-    </figure>
     <div class="links" v-bind:class="{ open }">
       <div v-for="route of routes" v-bind:key="route">
         <h4>{{route.name}}</h4>
@@ -95,18 +93,14 @@ a.router-link-exact-active {
   width: 30%;
   left: -30%;
   height: calc(100vh - var(--nav-bar-height));
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(12px);
+  background-color: #ffffffc5;
+  text-align: center;
 }
 
 .links.open{
   left: 0;
-}
-
-figure{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
 }
 
 img{

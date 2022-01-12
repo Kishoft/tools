@@ -1,16 +1,24 @@
 <template>
+  <UnderDevelopment />
   <NavBar />
   <router-view/>
+  <Footer />
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import UnderDevelopment from '@/components/UnderDevelopment.vue'
 export default {
-  components: { NavBar }
+  components: { NavBar, Footer, UnderDevelopment }
 }
 </script>
 
 <style>
+:root{
+  --text-color: #2c3e50;
+  --background-color: #ffffffc5;
+}
 html, body{
     margin: 0;
     padding: 0;
@@ -22,8 +30,13 @@ html, body{
   color: #2c3e50;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3{
   text-align: center;
+}
+article{
+  margin: auto;
+  width: 95%;
+  max-width: 1100px;
 }
 
 pre {
