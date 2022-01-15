@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h2>Barcode Reader API</h2>
+    <h2>Barcode Reader</h2>
     <section>
       <h3>Comprobar que se pueda utilizar</h3>
       <code>

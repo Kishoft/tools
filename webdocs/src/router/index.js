@@ -33,6 +33,7 @@ const routes = [
       { path: 'screen', name: 'Screen', component: () => import('../views/api/Screen.vue') },
       { path: 'full-screen', name: 'Full Screen', component: () => import('../views/api/FullScreen.vue') },
       { path: 'multi-screen-placement', name: 'Multi Screen Placement', component: () => import('../views/api/MultiScreenPlacement.vue') },
+      { path: 'intersection-observer', name: 'Intersection Observer', component: () => import('../views/api/IntersectionObserver.vue') },
       { path: 'pointer-lock', name: 'Pointer Lock', component: () => import('../views/api/PointerLock.vue') },
       { path: 'picture-in-picture', name: 'Picture In Picture', component: () => import('../views/api/PictureInPicture.vue') },
       { path: 'off-screen-canvas', name: 'Off Screen Canvas', component: () => import('../views/api/OffScreenCanvas.vue') },
