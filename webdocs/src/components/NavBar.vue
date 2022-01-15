@@ -1,13 +1,17 @@
 <template>
-  <div id="NavBar">
+  <div id="NavBar" class="glass">
     <div id="toggleBtn" @click="toggle()">
       <div class="toggleBtnLine"></div>
       <div class="toggleBtnLine"></div>
       <div class="toggleBtnLine"></div>
     </div>
-      <img src="@/assets/logo.svg" alt="Vue logo">
+    <figure>
+      <router-link to="/">
+        <img src="@/assets/logo.svg" alt="Vue logo">
+      </router-link>
+    </figure>
     <div class="links" v-bind:class="{ open }">
-      <div v-for="route of routes" v-bind:key="route">
+      <div class="topics" v-for="route of routes" v-bind:key="route">
         <h4>{{route.name}}</h4>
         <nav v-for="child of route.children" v-bind:key="child">
           <router-link :to="route.path+'/'+child.path">{{child.name}}</router-link>
@@ -21,7 +25,7 @@
 export default {
   data () {
     return {
-      open: true
+      open: false
     }
   },
   methods: {
@@ -49,17 +53,17 @@ export default {
   top:0;
   width: 100%;
   height: var(--nav-bar-height);
-  display: grid;
-  grid-template-columns: 40px auto;
-  grid-template-rows: auto;
-  place-items: center;
-  backdrop-filter: blur(12px);
-  background-color: #ffffffc5;
+  display: flex;
+  align-items: center;
 }
 
 a {
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: lighter;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
 }
 
 a.router-link-exact-active {
@@ -76,7 +80,7 @@ a.router-link-exact-active {
   border: 1px solid #2c3e50;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 30px
+  margin-left: 15px
 }
 
 .toggleBtnLine {
@@ -88,19 +92,39 @@ a.router-link-exact-active {
 
 .links{
   position: fixed;
-  top: var(--nav-bar-height);
-  background: white;
-  width: 30%;
-  left: -30%;
-  height: calc(100vh - var(--nav-bar-height));
+  left: 2.5vw;
+  top: calc(var(--nav-bar-height) + 10px);
+  width: 95vw;
+  height: 100vh;
   transition: all 0.3s ease-in-out;
-  backdrop-filter: blur(12px);
-  background-color: #ffffffc5;
-  text-align: center;
+  display:flex;
+  flex-wrap:wrap;
+  padding: 5px;
+  border-radius: 13px 13px 0 0;
+  background: linear-gradient(145deg, #283848, #2f4256);
+  overflow-y: scroll;
+  box-sizing: border-box;
 }
 
 .links.open{
-  left: 0;
+  top: calc(100vh + 12px);
+}
+
+.topics {
+  margin: 10px;
+}
+
+h4{
+  text-decoration: underline;
+  color: rgb(255, 255, 255);
+}
+
+figure{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display:flex;
+  justify-content: center;
 }
 
 img{

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="glass">
       <span>En desarrollo</span>
   </div>
 </template>
@@ -21,6 +21,5 @@ export default {
         z-index: 50;
         transform: rotate(45deg);
         color: var(--text-color);
-        background-color: var(--background-color);
     }
 </style>

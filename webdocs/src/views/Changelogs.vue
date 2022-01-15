@@ -1,5 +1,10 @@
 <template>
-    <Changelog timestamp="12/11/2022">
+    <Changelog timestamp="13/1/2022">
+        <li>Gran mayoría del contenido agregado al menú</li>
+        <li>Planificación de la extracción del contenido realizada</li>
+        <li>Mejoras responsivas y del menú</li>
+    </Changelog>
+    <Changelog timestamp="12/1/2022">
         <li>Proyecto Iniciado</li>
         <li>Menú MVP</li>
         <li>Rutas MVP</li>
