@@ -8,6 +8,7 @@ const routes = [
     name: 'API',
     component: () => import('../views/api/Index.vue'),
     children: [
+      { path: 'intl', name: 'Intl', component: () => import('../views/api/Intl.vue') },
       { path: 'fetch', name: 'Fetch', component: () => import('../views/api/Fetch.vue') },
       { path: 'push', name: 'Push', component: () => import('../views/api/Push.vue') },
       { path: 'server-side-events', name: 'Server Side Events', component: () => import('../views/api/ServerSideEvents.vue') },
