@@ -28,9 +28,11 @@ class Cajero {
         console.log(`tenemos ${cantidadDisponible} y necesitamos ${billetesRequeridos}`)
 
         let resto = Cajero.montoARetirar % montoDelBillete;
+
         if(cantidadDisponible < billetesRequeridos){
             resto += montoDelBillete * (billetesRequeridos - cantidadDisponible)
         }
+        
         console.log(`todavía quedan por pagar $${resto}`)
 
         Cajero.montoARetirar = resto
