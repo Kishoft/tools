@@ -1,37 +1,77 @@
-//Se requiere establecer plazas-colectivos de larga distancia y ordenar las plazas en los colectivos tal que el espacio sea óptimo
-let cuposSolicitados = [
-    { nombre : "Tincho", plazas : 3},
-    { nombre : "Pepe", plazas : 4},
-    { nombre : "Carlitos", plazas : 1},
-    { nombre : "Sultano", plazas : 6},
-    { nombre : "Mengano", plazas : 5},
-    { nombre : "Fulano", plazas : 8},
-    { nombre : "Arthas", plazas : 3},
-    { nombre : "Jaimito", plazas : 8},
-    { nombre : "Argento", plazas : 2 }
+let plazasPorTransporte = 10;
+let reservas = [
+    {
+        nombre: "Tincho",
+        cupos: 4
+    },
+    {
+        nombre: "Juan",
+        cupos: 3
+    },
+    {
+        nombre: "Pedro",
+        cupos: 2
+    },
+    {
+        nombre: "Noelia",
+        cupos: 1
+    },
+    {
+        nombre: "Arthas",
+        cupos: 6
+    },
+    {
+        nombre: "Sergio",
+        cupos: 8
+    },
+    {
+        nombre: "Alberto",
+        cupos: 5
+    },
+    {
+        nombre: "Carlitos",
+        cupos: 7
+    },
+    {
+        nombre: "Cristina",
+        cupos: 9
+    },
+    {
+        nombre: "Macri",
+        cupos: 5
+    }
 ]
-let cupoPorColectivo = 10;
+
 let resultado = [];
 
-//Ordenamos de mayor a menor
+reservas.sort((a, b) => { return (b.cupos - a.cupos) })
 
-cuposSolicitados.sort((a, b) => {
-    return b.plazas - a.plazas
-})
+for (let i = 0; i < reservas.length; i++) {
+    //console.log(`i, vale ${i}`);
 
-console.log(cuposSolicitados)
+    let espacioDelMedioDeTransporte = [];
 
-for (let i = 0; i < cuposSolicitados.length; i++) {
-    let acumulador = []
-    acumulador.push(cuposSolicitados[i])
-    let acumuladorPlazasTotal = cuposSolicitados[i].plazas
-    for (let e = i + 1; e < cuposSolicitados.length; e++) {
-        if( (acumuladorPlazasTotal + cuposSolicitados[e].plazas) <= cupoPorColectivo){
-            acumulador.push(cuposSolicitados[e])
-            acumuladorPlazasTotal += cuposSolicitados[e].plazas
-            cuposSolicitados.splice(e, 1);
+    espacioDelMedioDeTransporte.push(reservas[i]);
+
+    let plazasOcupadas = reservas[i].cupos
+
+    //"LoS de la derecha"
+    for (let e = i + 1 ; e < reservas.length; e++) {
+        //En esta parte se van a computar TODOS los de la derecha
+        //console.log(`e, vale ${e}`);
+        if(
+            (plazasOcupadas + reservas[e].cupos) <= plazasPorTransporte 
+        ){
+            //Se agrega la reserva a la lista del medio de transporte
+            espacioDelMedioDeTransporte.push(reservas[e]);
+            //Se suma el cupo de la reserva a la cantidad de plazas ocupadas
+            plazasOcupadas += reservas[e].cupos;
+            //Se elimina la reserva de la lista de reservas
+            reservas.splice(e, 1);
         }
     }
-    resultado.push(acumulador)
+
+    resultado.push(espacioDelMedioDeTransporte)
 }
+
 console.log(resultado)
