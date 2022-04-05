@@ -1,0 +1,19 @@
+:host:not(:defined){
+    display:none;
+}
+:host{
+    --background-color: #171c1d;
+
+    position: fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+img{
+    width: 240px;
+}
