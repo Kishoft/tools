@@ -4,6 +4,12 @@ class TableComponent extends HTMLElement {
 
     data = [];
 
+    get limitFromURL (){
+        let url = new URL(location)
+        let limit = url.searchParams.get("LIMIT")
+        return Number(limit)
+    }
+
     get src() {
         return this.getAttribute("src")
     }
@@ -71,14 +77,22 @@ class TableComponent extends HTMLElement {
 
     createFilters() {
 
+        let limiterContainer = document.createElement("div")
+
+        let limiterLabel = document.createElement("label")
+        limiterLabel.textContent = "Limit: "
+
         let limiter = document.createElement("input");
         limiter.type = "number";
         limiter.id = "items-limit";
         limiter.placeholder = "Items length"
-        limiter.value = 4;
+        limiter.value = this.limitFromURL || 100;
         limiter.addEventListener('input', this.debounce(() => {
             console.log('Do something');
+            //do something here when LIMIT value changes
         }, 700))
+
+        limiterContainer.append(limiterLabel, limiter)
 
         let selector = document.createElement("select");
         selector.id = "table-filter-selector";
@@ -96,7 +110,7 @@ class TableComponent extends HTMLElement {
 
         selector.append(ascendantOption, descendantOption);
 
-        this.shadowRoot.append(limiter, selector)
+        this.shadowRoot.append(limiterContainer, selector)
     }
 
     createTable() {
