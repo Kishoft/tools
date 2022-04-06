@@ -12,12 +12,21 @@ class TableComponent extends HTMLElement {
         return this.getAttribute("columns-keys").split(',').map(key => key.trim())
     }
 
-    get itemsPerPage() {
-        return Number(this.getAttribute("items-per-page"))
+    get orderDirection() {
+        return this.shadowRoot.getElementById("table-filter-selector").value
     }
 
-    get orderDirection(){
-        return this.shadowRoot.getElementById("table-filter-selector").value
+    get itemsPerPageOptions() {
+        return [3, 25, 50, 100]
+    }
+
+    get itemsPerPage() {
+        console.log("chan")
+        return Number(this.getAttribute("items-per-page")) || this.itemsPerPageOptions[0]
+    }
+
+    set itemsPerPage(itemsPerPage) {
+        this.setAttribute("items-per-page", itemsPerPage);
     }
 
     static get observedAttributes() {
@@ -29,37 +38,47 @@ class TableComponent extends HTMLElement {
         this.attachShadow({ mode: 'open' })
     }
 
+    debounce(callback, wait) {
+        let timerId;
+        return (...args) => {
+            clearTimeout(timerId);
+            timerId = setTimeout(() => {
+                callback(...args);
+            }, wait);
+        };
+    }
+
     fetchJSONData(url) {
         return fetch(url)
             .then(response => response.json())
             .then(data => { this.data = data })
     }
 
-    sortDataBy(key){
-        if(key) { this.lastSortKey = key }
+    sortDataBy(key) {
+        if (key) { this.lastSortKey = key }
         this.data.sort((a, b) => {
-            if(this.orderDirection === "asc"){
+            if (this.orderDirection === "asc") {
                 return a[this.lastSortKey] > b[this.lastSortKey] ? 1 : -1;
             }
-            else if(this.orderDirection === "desc"){
+            else if (this.orderDirection === "desc") {
                 return a[this.lastSortKey] < b[this.lastSortKey] ? 1 : -1;
             }
 
         })
-        
+
         this.renderTableBody(this.currentPage);
     }
 
-    createFilters(){
+    createFilters() {
 
         let limiter = document.createElement("input");
         limiter.type = "number";
         limiter.id = "items-limit";
         limiter.placeholder = "Items length"
         limiter.value = 4;
-        limiter.addEventListener("change", e => {
-
-        })
+        limiter.addEventListener('input', this.debounce(() => {
+            console.log('Do something');
+        }, 700))
 
         let selector = document.createElement("select");
         selector.id = "table-filter-selector";
@@ -70,7 +89,7 @@ class TableComponent extends HTMLElement {
         let ascendantOption = document.createElement("option");
         ascendantOption.textContent = "Ascendant";
         ascendantOption.value = "asc";
-        
+
         let descendantOption = document.createElement("option");
         descendantOption.textContent = "Descendant";
         descendantOption.value = "desc";
@@ -94,6 +113,36 @@ class TableComponent extends HTMLElement {
         this.shadowRoot.appendChild(table);
     }
 
+    createPaginator() {
+        let paginator = document.createElement("div");
+        paginator.id = "paginator";
+
+        if (!this.hasAttribute("items-per-page")) {
+            let itemsPerPage = document.createElement("select");
+            itemsPerPage.id = "items-per-page";
+            itemsPerPage.addEventListener("input", e => {
+                console.log(e.target.value)
+                this.itemsPerPage = e.target.value;
+                this.renderTableBody(0)
+                this.renderPaginator()
+            })
+
+
+            this.itemsPerPageOptions.forEach(option => {
+                let optionElement = document.createElement("option");
+                optionElement.textContent = option;
+                optionElement.value = option;
+                itemsPerPage.appendChild(optionElement);
+            })
+
+            itemsPerPage.selectedIndex = 0;
+
+            this.shadowRoot.append(itemsPerPage)
+        }
+
+        this.shadowRoot.appendChild(paginator);
+    }
+
     renderTableHeader() {
 
         let tr = document.createElement("tr");
@@ -112,7 +161,7 @@ class TableComponent extends HTMLElement {
 
     }
 
-    async renderTableBody(page) {
+    renderTableBody(page) {
 
         this.currentPage = page;
 
@@ -139,41 +188,56 @@ class TableComponent extends HTMLElement {
     }
 
     renderPaginator() {
-        let paginator = document.createElement("div");
 
-        paginator.id = "paginator";
+        let paginator = this.shadowRoot.getElementById("paginator");
 
-        let pages = this.data.length / this.itemsPerPage;
+        paginator.innerHTML = "";
+
+        let pages = Math.ceil(this.data.length / this.itemsPerPage);
+
+        if (this.currentPage > 0) {
+            let previous = document.createElement("button");
+            previous.textContent = "<";
+            previous.classList.add("page-button");
+            previous.addEventListener("click", e => {
+                this.renderTableBody(this.currentPage - 1)
+                this.renderPaginator()
+            })
+
+            paginator.appendChild(previous)
+        }
+
 
         for (let i = 0; i < pages; i++) {
 
             let page = document.createElement("button");
             page.classList.add("page-button");
-
             page.textContent = i + 1;
-
+            if (this.currentPage === i) {
+                page.classList.add("active")
+            }
             page.addEventListener("click", () => {
                 this.renderTableBody(i);
+                this.renderPaginator();
             })
 
             paginator.appendChild(page);
 
         }
 
-        let itemsPerPage = document.createElement("select");
-        itemsPerPage.id = "items-per-page";
-        itemsPerPage.addEventListener("change", e => {})
+        if ((this.currentPage + 1) < pages) {
 
-        let itemsPerPageOptions = [25, 50, 100, 200];
+            let next = document.createElement("button");
+            next.textContent = ">";
+            next.classList.add("page-button");
+            next.addEventListener("click", e => {
+                this.renderTableBody(this.currentPage + 1)
+                this.renderPaginator()
+            })
 
-        itemsPerPageOptions.forEach(option => {
-            let optionElement = document.createElement("option");
-            optionElement.textContent = option;
-            optionElement.value = option;
-            itemsPerPage.appendChild(optionElement);
-        })
+            paginator.appendChild(next)
+        }
 
-        this.shadowRoot.append(paginator, itemsPerPage)
     }
 
     //attributeChangedCallback(attrName, oldVal, newVal) {
@@ -186,13 +250,14 @@ class TableComponent extends HTMLElement {
     //    }
     //}
     connectedCallback() {
-        
+
         document.getElementById("page-loader").setAttribute("loading", "");
 
         this.shadowRoot.adoptedStyleSheets = [styles];
 
         this.createFilters();
         this.createTable();
+        this.createPaginator()
 
         this.fetchJSONData(this.src)
             .then(() => {

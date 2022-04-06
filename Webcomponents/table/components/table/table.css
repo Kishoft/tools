@@ -43,3 +43,7 @@ table tbody tr:nth-child(even){
     box-shadow:  2px 2px 4px #111415,
              -2px -2px 4px #1d2425;
 }
+
+#paginator .page-button.active{
+    color:#4e4edb;
+}
