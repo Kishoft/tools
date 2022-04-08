@@ -8,3 +8,10 @@ body{
     color: white;
     background-color: #171c1d;
 }
+:root{
+    --main-color1: white;
+    --main-color2: #4e4edb;
+    --main-color3: orangered;
+    --background-color1: #171c1d;
+    --background-color2: #202222;
+}

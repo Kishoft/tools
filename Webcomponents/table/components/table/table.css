@@ -3,33 +3,51 @@
     width: 100vw;
 }
 
+#filters{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#filters > div, #items-per-page-container > *{
+    padding: 0.5rem
+}
+
 table{
     border-collapse:collapse;
     border-spacing:0;
     empty-cells:show;
-    color:white;
-    width: 100%
+    color: var(--main-color1);
+    width: 100%;
+    text-align: left;
+}
+
+table thead{
+    font-weight: 500;
 }
 
 table th {
     text-transform: capitalize;
-    font-weight: 500;
-    background-color: orangered;
+    background-color: var(--main-color2);
     padding: 5px 10px;
     cursor: pointer;
-    
 }
 
 table tbody tr:nth-child(odd){
-    border-bottom: 1px solid #0000001f;
-    background-color: #171c1d;
+    background-color: var(--background-color1);
 }
 
 table tbody tr:nth-child(even){
-    background-color: #202222;
+    background-color: var(--background-color2);
 }
 
-#paginator{
+table tbody td{
+    padding: 5px 10px;
+}
+
+#paginator-buttons{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +55,7 @@ table tbody tr:nth-child(even){
     height: 100%;
 }
 
-#paginator .page-button{
+#paginator-buttons .page-button{
     color:white;
     width: 30px;
     height: 30px;
@@ -52,6 +70,14 @@ table tbody tr:nth-child(even){
              -2px -2px 4px #1d2425;
 }
 
-#paginator .page-button.active{
-    color:#4e4edb;
+#paginator-buttons .page-button.active{
+    color:var(--main-color3);
+}
+
+input[type="number"], select{
+    padding: 5px 10px;
+    font-size: 1.2em;
+    border: 1px solid var(--main-color2);
+    box-shadow: 1px 0 0 var(--main-color2);
+    background: var(--main-color1);
 }

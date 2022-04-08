@@ -12,9 +12,10 @@ class LoaderComponent extends HTMLElement {
     }
 
     render() {
-        return `
-            <img src="./components/loader/loader.gif" alt="">
-        `
+        let image = document.createElement("img")
+        image.src = "./components/loader/loader.gif";
+        image.alt = "Loading...";
+        return image;
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) { 
@@ -29,7 +30,7 @@ class LoaderComponent extends HTMLElement {
     }
     connectedCallback() {
         this.shadowRoot.adoptedStyleSheets = [styles];
-        this.shadowRoot.innerHTML = this.render()
+        this.shadowRoot.appendChild(this.render())
     }
     disconnectedCallback() { }
     //adoptedCallback(){}

@@ -1,4 +1,3 @@
-
 import('/components/loader/loader.js')
     .then(() => {
         Promise.allSettled([
