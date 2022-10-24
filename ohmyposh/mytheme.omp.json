@@ -5,55 +5,57 @@
       "alignment": "left",
       "segments": [
         {
-          "background": "#193549",
-          "foreground": "p:white",
-          "leading_diamond": "\ue0b6",
+          "background": "#e0e0e0",
+          "foreground": "#193549",
+          "leading_diamond": "\u256d\u2500\ue0b6",
+          "style": "diamond",
           "properties": {
             "linux": "\ue712",
             "macos": "\ue711",
             "windows": "\ue70f"
           },
-          "style": "diamond",
           "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
           "type": "os"
         },
         {
-          "background": "#193549",
-          "foreground": "p:yellow",
+          "background": "p:yellow",
+          "foreground": "#193549",
+          "powerline_symbol": "\ue0c6",
+          "style": "powerline",
           "properties": {
             "root_icon": "\uf0ad"
           },
-          "style": "powerline",
-          "template": " \uf0e7",
+          "template": "\uf0e7",
           "type": "root"
         },
         {
-          "background": "#193549",
-          "foreground": "#f8677b",
-          "leading_diamond": "\ue0b6",
+          "background": "#f8677b",
+          "foreground": "#193549",
+          "powerline_symbol": "\ue0b4",
+          "style": "powerline",
           "properties": {
             "display_host": false
           },
-          "style": "diamond",
-          "template": "{{ if .WSL }}WSL at {{ end }}{{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }} @ {{ .HostName }}",
+          "template": " {{ if .WSL }}WSL at {{ end }}{{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }} @ {{ .HostName }}",
           "trailing_diamond": "\ue0b0",
           "type": "session"
         },
         {
-          "background": "#193549",
+          "background": "#c386f1",
+          "foreground": "#193549",
+          "powerline_symbol": "\ue0b4",
+          "style": "powerline",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}",
             "{{ if gt .Ahead 0 }}#49416D{{ end }}",
             "{{ if gt .Behind 0 }}#7A306C{{ end }}"
           ],
-          "foreground": "#c386f1",
           "foreground_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}p:black{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}",
             "{{ if gt .Ahead 0 }}p:white{{ end }}"
           ],
-          "powerline_symbol": "\ue0b0",
           "properties": {
             "branch_icon": "\ue725 ",
             "fetch_stash_count": true,
@@ -61,23 +63,21 @@
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true
           },
-          "style": "powerline",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }}",
           "type": "git"
         },
         {
           "background": "p:blue",
+          "foreground": "p:white",
+          "powerline_symbol": "\ue0b4",
+          "style": "powerline",
           "background_templates": [
             "{{ if gt .Code 0 }}p:red{{ end }}"
           ],
-          "foreground": "p:white",
-          "leading_diamond": "<transparent,background>\ue0b0</>",
           "properties": {
             "always_enabled": true
           },
-          "style": "diamond",
           "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
-          "trailing_diamond": "\ue0b4",
           "type": "exit"
         }
       ],
@@ -259,13 +259,14 @@
         {
           "background": "#193549",
           "foreground": "#ff9248",
-          "powerline_symbol": "\ue0b0",
+          "leading_diamond": "<#e0e0e0>\u2570\u2500</>",
+          "trailing_diamond": "\ue0c8",
           "properties": {
             "home_icon": "~",
             "style": "full"
           },
-          "style": "powerline",
-          "template": " \uf74a {{ path .Path .Location }} ",
+          "style": "diamond",
+          "template": "<#e0e0e0>\ue0b6</><,#e0e0e0>\uf74a</><#e0e0e0>\ue0b0</> {{ path .Path .Location }} ",
           "type": "path"
         }
       ],
@@ -293,7 +294,7 @@
           "foreground": "#7FD5EA",
           "leading_diamond": "\ue0b6",
           "style": "diamond",
-          "template": "\u276f",
+          "template": "\u276f_",
           "trailing_diamond": "\ue0b4",
           "type": "text"
         }
