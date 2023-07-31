@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Holis</h2>
+    <form id="subir-tsv" enctype="application/x-www-form-urlencoded">
+        <input title="TSV" accept=".tsv" type="file" name="tsv" id="tsv">
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        let parserSaltoDeLinea = '\r\n' // para Windows es '\r\n', para Linux es '\n'
+        let parserSeparador = '\t' // para TSV (tabulador), si querés CSV entonces es ','
+
+        let form = document.getElementById('subir-tsv');
+        form.addEventListener('submit', async (e) =>{
+            e.preventDefault();
+            let tsv = await form['tsv'].files[0].text()
+            let lineas = tsv.split(parserSaltoDeLinea)
+
+            lineas.forEach((linea, i) => {
+                lineas[i] = linea.split(parserSeparador)
+            })
+
+            let [headers, ...data] = lineas
+
+            let json = []
+
+            data.forEach((fila, i) => {
+                let obj = {}
+                fila.forEach((dato, j) => {
+                    obj[headers[j]] = dato
+                })
+                json.push(obj)
+            })
+
+            console.log(json)
+        })
+    </script>
+</body>
+</html>

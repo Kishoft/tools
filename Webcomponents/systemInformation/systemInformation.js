@@ -11,7 +11,7 @@ class SystemInformation{
         this.info.match(/iPod/i) ? this.os = "iPod" :
         this.info.match(/BlackBerry/i) ? this.os = "BlackBerry" :
         this.info.match(/Windows Phone/i) ? this.os = "Windows Phone" :
-        this.info.match(/Windows NT 10.0/i) ? this.os = "Windows 10" :
+        this.info.match(/Windows NT 10.0/i) ? this.os = "Windows" :
         this.info.match(/Raspbian/i) ? this.os = "Raspbian" :
         this.info.match(/Linux/i) ? this.os = "Linux" :
         this.os = this.info
