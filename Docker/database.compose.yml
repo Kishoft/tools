@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ezequiel
+      POSTGRES_PASSWORD: chichito
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    networks:
+      - nextcloud
+
+networks:
+  nextcloud:
+    external: true

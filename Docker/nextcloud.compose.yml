@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  nextcloud:
+    image: nextcloud:latest
+    ports:
+      - 8080:80
+    volumes:
+      - /mnt/btrfs/nextcloud/var/www/html/:/var/www/html/
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=ezequiel
+      - POSTGRES_PASSWORD=chichito
+      - POSTGRES_HOST=postgresql
+      - NEXTCLOUD_ADMIN_USER=ezequiel
+      - NEXTCLOUD_ADMIN_PASSWORD=chichito
+    networks:
+      - nextcloud
+    
+networks:
+  nextcloud:
+    external: true
