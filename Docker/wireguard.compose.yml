@@ -18,7 +18,7 @@ services:
       - LOG_CONFS=true #optional
     volumes:
       - ./config:/config
-      #- /lib/modules:/lib/modules #optional
+      - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
     sysctls:
