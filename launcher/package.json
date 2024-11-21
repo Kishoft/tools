@@ -130,7 +130,7 @@
     "global-prefix": "^1.0.2",
     "global-tunnel-ng": "^2.7.1",
     "globalthis": "^1.0.2",
-    "got": "^9.6.0",
+    "got": "^11.8.5",
     "graceful-fs": "^4.2.6",
     "har-schema": "^2.0.0",
     "har-validator": "^5.1.5",
