@@ -1,0 +1,43 @@
+#presentacion {
+    background: linear-gradient(90deg, rgba(25, 25, 24, 1) 0%, rgba(25, 25, 24, 1) 35%, rgba(76, 56, 40, 1) 100%);
+    position: relative;
+}
+
+#gradient-left,
+.gradient-shadow-left {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vh;
+    top: 0;
+    clip-path: polygon(50% 50%, 0 0, 0 100%);
+}
+#gradient-bottom,
+.gradient-shadow-bottom{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50vw;
+    height: 50vh;
+    max-height: 100vh;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+}
+.gradient-shadow-bottom {
+    background-color: var(--background-color);
+    transform: translateY(50%);
+}
+.gradient-shadow-left {
+    background-color: var(--background-color);
+    transform: translateX(-25%);
+}
+
+#presentacion h1 {
+    font-size: 10em;
+    color: #febf94;
+    mix-blend-mode: difference;
+    z-index: 9999;
+}
+
+#presentacion h1.especializacion {
+    text-align: right;
+}

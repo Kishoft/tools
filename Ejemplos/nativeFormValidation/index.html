@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="formis">
+        <input placeholder="user" type="text" name="user" id="user">
+        <input placeholder="pass" type="text" name="pass" id="pass">
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        let form = document.getElementById('formis');
+        form["user"].addEventListener("input", e => {
+            console.log(e.target.value.length)
+            if (e.target.value.length == 0) {
+                form["user"].setCustomValidity("El usuario no puede ser vacio");
+            }
+        })
+    </script>
+</body>
+
+</html>
