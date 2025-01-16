@@ -1,0 +1,8 @@
+version: '3.8'
+services: 
+    certbot:
+        image: certbot/certbot
+        command: certonly --webroot --webroot-path=/var/www/certbot --email eze.shaftyel@gmail.com --agree-tos --no-eff-email -d ezeflix.ddns.net
+        volumes: 
+            -   ./config/certbot/conf:/etc/letsencrypt:rw
+            -   ./config/certbot/www:/var/www/certbot:rw

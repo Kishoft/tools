@@ -1,0 +1,18 @@
+version: '3.5'
+services:
+    jellyfin:
+        image: jellyfin/jellyfin
+        container_name: jellyfin
+        ports:
+            - 8096:8096
+        volumes:
+            - ./config:/config
+            - ./cache:/cache
+            - ../../Mis Videos:/media/videos
+            - ../../Mi música:/media/music
+        restart: 'unless-stopped'
+        networks:
+            - swarow
+networks:
+    swarow:
+        external: true

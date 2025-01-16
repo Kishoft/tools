@@ -1,0 +1,79 @@
+version: '3.8'
+services:
+    mysql:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password --event-scheduler=ON
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: nofichito
+            MYSQL_DATABASE: milcolockers
+            MYSQL_USER: locker
+            MYSQL_PASSWORD: nofichito
+        ports:
+            - 3306:3306
+            - 33060:33060
+        volumes:
+            - mysqlv:/var/lib/mysql
+    postgresql:
+        image: postgres:latest
+        restart: always
+        environment:
+            POSTGRES_USER: pgdb
+            POSTGRES_PASSWORD: defasecretpass
+        ports:
+            - 5432:5432
+    pgadmin:
+        image: dpage/pgadmin4
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=regaldo.ezequiel@gmail.com
+            - PGADMIN_DEFAULT_PASSWORD=chichito
+    #redis:
+    #    image: redislabs/redismod:latest
+    #    #command: redis-server --appendonly yes
+    #    restart: always
+    #    volumes: 
+    #        -   redisv:/data
+    #    ports: 
+    #        -   6379:6379
+    #        -   16379:16379
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: chichito
+            MONGO_INITDB_ROOT_PASSWORD: masterrace
+        ports:
+            - 27017:27017
+        command: --quiet
+    neo4j:
+        image: neo4j:4.4.24-enterprise
+        restart: unless-stopped
+        ports:
+            -   7476:7474
+            -   7689:7687
+        environment:
+            -   NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+            -   NEO4J_neo4j_bloom_license__file=/var/lib/neo4j/license/bloom-plugin.license
+            -   NEO4JLABS_PLUGINS=["graph-data-science", "apoc", "bloom", "n10s"]
+            -   NEO4J_dbms_security_procedures_whitelist=gds.*,apoc.*,bloom.*,n10s.*
+            -   NEO4J_dbms_security_procedures_unrestricted=gds.*,apoc.*,bloom.*,n10s.*
+            -   NEO4J_dbms_security_procedures_allowlist=gds.*,apoc.*,bloom.*,n10s.*
+            -   NEO4J_dbms_security_http__auth__allowlist=/,/browser.*,/bloom.*
+            -   NEO4J_dbms_unmanaged__extension__classes=com.neo4j.bloom.server=/bloom
+            -   NEO4J_neo4j_bloom_authorization__role=admin,reader,scientist,bloom
+            -   NEO4J_apoc_import_file_use__neo4j__config=true
+            -   NEO4J_apoc_import_file_enabled=true
+            -   NEO4J_dbms_allow__upgrade=true
+            -   NEO4J_cypher_lenient__create__relationship=true
+        volumes:
+            -   ./neo4j/data:/data
+            -   ./neo4j/logs:/logs
+            -   ./neo4j/plugins:/var/lib/neo4j/plugins
+            -   ./neo4j/license:/var/lib/neo4j/license
+            -   ./neo4j/dumps/:/var/lib/neo4j/dumps/
+            -   ./neo4j/import:/var/lib/neo4j/import
+volumes:
+    mysqlv:
