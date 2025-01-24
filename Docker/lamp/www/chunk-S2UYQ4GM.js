@@ -1,1 +1,0 @@
-import{Aa as n,Ba as o,Da as s,ra as t}from"./chunk-DIEM2GNK.js";var r=class a{static \u0275fac=function(e){return new(e||a)};static \u0275cmp=t({type:a,selectors:[["app-saraza"]],decls:2,vars:0,template:function(e,i){e&1&&(n(0,"p"),s(1,"saraza works!"),o())},encapsulation:2})};export{r as SarazaComponent};
