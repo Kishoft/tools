@@ -1,0 +1,91 @@
+version: "3.7"
+
+services:
+    ######## Static
+    #static:
+    #    image: registry.swarow.com/static
+    #    networks:
+    #        -   proxy
+    #    deploy:
+    #        placement:
+    #            constraints:
+    #                -   node.hostname==Workstation
+    ######## APIs
+    signup:
+        image: registry.swarow.com/signup
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    signin:
+        image: registry.swarow.com/signin
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    sse:
+        image: registry.swarow.com/sse
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    products:
+        image: registry.swarow.com/products
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    sales:
+        image: registry.swarow.com/sales
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    clients:
+        image: registry.swarow.com/clients
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    payment_methods:
+        image: registry.swarow.com/payment_methods
+        networks:
+            -   proxy
+            -   backend
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+    ######## Test container
+    whoami:
+        image: containous/whoami
+        networks:
+            -   proxy
+        deploy:
+            replicas: 5
+
+networks:
+    proxy:
+        name: proxy
+        external: true
+    backend:
+        name: backend
+        external: true

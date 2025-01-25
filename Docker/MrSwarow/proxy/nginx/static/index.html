@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+</head>
+<body>
+    <nav-bar>
+        <button slot="barBefore" id="switch" >Cambiar entidad</button>
+        <net-status></net-status>
+        <button id="products" >Productos</button>
+        <button id="sales" >Ventas</button>
+        <button id="clients" >Clientes</button>
+        <button id="payment_methods" >Métodos de pago</button>
+        <button id="updateP">Forzar Actualización</button>
+        <button slot="barAfter" id="signout" >Salir</button>
+    </nav-bar>
+    <header></header>
+    <main id="app"></main>
+    <script src="./router.js"></script>
+    <script src="./components/ui/navBar/navBar.js"></script>
+    <script src="./components/ui/netStatus/netStatus.js"></script>
+    <script src="./components/pages/signin/signin.js"></script>
+    <script src="./components/pages/signup/signup.js"></script>
+    <script src="./components/pages/entitySelector/entitySelector.js"></script>
+    <script src="./components/pages/sales/sales.js"></script>
+    <script src="./components/pages/products/products.js"></script>
+    <script src="./components/pages/clients/clients.js"></script>
+    <script src="./components/pages/payment_methods/payment_methods.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+version: "3.7"
+
+services:
+    ########### Microservices Containers
+    #Static
+    static:
+        container_name: api/static
+        build: 
+            context: .
+            dockerfile: ./static/Dockerfile
+        image: registry.swarow.com/static:latest
+    #Auth
+    signup:
+        container_name: api/signup
+        build: 
+            context: .
+            dockerfile: ./signup/Dockerfile
+        image: registry.swarow.com/signup:latest
+    signin:
+        container_name: api/signin
+        build: 
+            context: .
+            dockerfile: ./signin/Dockerfile
+        image: registry.swarow.com/signin:latest
+    #SSE
+    sse:
+        container_name: api/sse
+        build: 
+            context: .
+            dockerfile: ./sse/Dockerfile
+        image: registry.swarow.com/sse:latest
+    #APIs
+    products:
+        container_name: api/products
+        build: 
+            context: .
+            dockerfile: ./products/Dockerfile
+        image: registry.swarow.com/products:latest
+    sales:
+        container_name: api/sales
+        build: 
+            context: .
+            dockerfile: ./sales/Dockerfile
+        image: registry.swarow.com/sales:latest
+    clients:
+        container_name: api/clients
+        build:
+            context: .
+            dockerfile: ./clients/Dockerfile
+        image: registry.swarow.com/clients:latest
+    payment_methods:
+        container_name: api/payment_methods
+        build:
+            context: .
+            dockerfile: ./payment_methods/Dockerfile
+        image: registry.swarow.com/payment_methods:latest

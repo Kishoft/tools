@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+    cfgsvr1:
+        image: mongo
+        command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+        volumes:
+            -   cfgsvr1:/data/db
+    cfgsvr2:
+        image: mongo
+        command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+        volumes:
+            -   cfgsvr2:/data/db
+    cfgsvr3:
+        image: mongo
+        command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+        volumes:
+            -   cfgsvr3:/data/db
+    mongos:
+        image: mongo
+        depends_on: 
+            -   cfgsvr1
+            -   cfgsvr2
+            -   cfgsvr3
+        command: mongos --configdb cfgrs/cfgsvr1:27017,cfgsvr2:27017,cfgsvr3:27017 --bind_ip 0.0.0.0 --port 27017
+        ports:
+            -   27017:27017
+    shard1svr1:
+        image: mongo
+        command: mongod --shardsvr --replSet shard1rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard1svr1:/data/db
+    shard1svr2:
+        image: mongo
+        command: mongod --shardsvr --replSet shard1rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard1svr2:/data/db
+    shard1svr3:
+        image: mongo
+        command: mongod --shardsvr --replSet shard1rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard1svr3:/data/db
+    shard2svr1:
+        image: mongo
+        command: mongod --shardsvr --replSet shard2rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard2svr1:/data/db
+    shard2svr2:
+        image: mongo
+        command: mongod --shardsvr --replSet shard2rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard2svr2:/data/db
+    shard2svr3:
+        image: mongo
+        command: mongod --shardsvr --replSet shard2rs --port 27017 --dbpath /data/db
+        volumes:
+            -   shard2svr3:/data/db
+            
+volumes:
+    cfgsvr1: {}
+    cfgsvr2: {}
+    cfgsvr3: {}
+    shard1svr1: {}
+    shard1svr2: {}
+    shard1svr3: {}
+    shard2svr1: {}
+    shard2svr2: {}
+    shard2svr3: {}

@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            -   ./nginx/config:/etc/nginx/conf.d
+            -   ./nginx/static:/usr/share/nginx/www
+            -   ../certs:/etc/ssl
+        ports:
+            -   "443:443"
+            -   "80:80"
+        networks:
+            -   proxy
+        deploy:
+            placement:
+                constraints:
+                    -   node.hostname==Workstation
+networks:
+    proxy:
+        name: proxy
+        external: true

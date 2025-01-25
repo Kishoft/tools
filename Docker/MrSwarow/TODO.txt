@@ -1,0 +1,152 @@
+Ponerle codigos de error al SSE para manejar el objeto en el worker y saber el estado de la sesión (puede ser útil para saber si estoy logueado o no)
+Cuando se inicia sesión, que se mande un mensaje al worker para que se conecte con SSE
+Es mejor ignorar el SSE en cuestiones de depuración porque tiene errores genéricos y se reconecta solo pase lo que pase excepto por
+errores de auth
+
+Usar el header 'last-event-id': '1', con una fecha para comparar con la colección de cambios, toda colección que tenga cambios entre la fecha y el momento actual será enviada 
+con sse, y el worker hará peticiones http al server pidiendo lo que falte entre o tal vez lo sirva por el mismo sse, todavía no sé
+
+El sse antes de ir a la base de datos que verifique los permisos de esa persona a ver si puede obtener esa info
+luego que compare 
+
+
+2 opciones:
+
+1 - JWT con todas las entidades
+    -Se especifica en la url cuál quiero y el backend tendría que comprobar si coincide
+    -Es mejor para dejar en cola productos y facturas a entidades diferentes
+    -El mismo SSE podría mandarle cosas a varios
+
+2 - JWT con una sola entidad
+    -No hace falta especificar en la url y no podría tener pestañas con entidades diferentes
+    -No podría hacer el queue para los que se quedan sin conexión
+    -Un SSE puede mandar una cosa
+
+
+Gana 1, y en el backend:
+
+Service worker vs worker genérico:
+
+1 - GW
+    -Fácil para gestionar los SSE
+    -Múltiples conexiones por pestaña pero como es http2 se multiplexa
+    -Requiere tener la app abierta para actualizar información
+2 - SW
+    -Más complicados de gestionar
+    -Un solo SSE, no hace falta multiplexar
+    -Actualizará información cuando no se esté usando la app
+Conclusión:
+Usar sync para actualizar toda la info cuando sea necesario, y el SSE para mantener la información en tiempo real
+Cuando la app se cierra que quede solo un SSE en el SW para notificaciones importantes (gastaría menos batería)
+
+INVESTIGAR!!!: Ver evento connect del serviceworker
+
+Se usará el SW para peticiones normales con sync
+También se usará un GW para los SSE
+
+Arquitectura microservicio:
+
+1 - Al conectar el SSE a la ruta correspondiente, se van a enviar las cookies (que correspondan a ese path)
+    la cookie tiene el formato :entidad=timestamp
+    el microservicio verificará que dentro del JWT la entidad exista y pueda operar (por horarios, permisos, etc ...)
+    tomará el timestamp de la cookie y hará una query filtrando resultados entre el timestamp y "ahora"
+
+Microservicios
+    -> Productos
+        ->GET(SSE)
+        ->POST
+        ->PUT
+        ->DELETE
+
+2 - Un solo servidor SSE en un worker y al abrir la app se hacen consultas a varios paths aprovechando
+    la multipexación para actualizar los datos en tiempo real, luego se abre el SSE que va a traer información de la entidad
+    Se emitirán eventos desde el SSE que correspondan a cada colección (productos, facturas, etc)
+
+
+Microservicios
+    -> SSE
+    -> Productos
+        ->GET
+        ->POST
+        ->PUT
+        ->DELETE
+
+    Al abrir la pestaña y seleccionar una entidad sucederá lo siguiente:
+    Verificar si hay conexión a internet, luego verificar si hay entidades en el sessionStorage
+    Si no hay conexión ni sessionStorage:
+        Decirle al usuario que necesita internet para inciiar sesión al menos por primera vez
+    Si no hay conexión pero hay sessionStorage:
+        Ofrecerle elegir la entidad trayendolas desde el localStorage con un botón o reintentar (NO utilizar SW sync)
+    Si hay conexión:
+    ->GET /signin
+        ->Si es 200, mostrar entidades entonces vaciar por completo el localStorage y aplicar lo nuevo, 
+        ->Si es 402, mostrar pantalla de inicio de sesión
+        ->Si es 416, mostrarle una burla 
+    Una vez elegida la entidad, 
+        ->Si hay internet, entonces se enviará al SW un background sync para actualizar info vieja (de esa entidad),
+            una vez recibida la info, se conecta al SSE de entidad correspondiente 
+        ->Si no hay internet, también se hará el sync -DERP pwa vieja-, si hay un sse, se mata, así no queda en loop
+            hasta que haya internet
+    
+
+    al enviar un mensaje al SW, se le deberá especificar la entidad para devolver lo que corresponde
+    Al iniciar la app, enviar postmessage aclarando qué entidad se seleccionó para actualizar los datos que se van a usar
+
+    *Se usará un SW para peticiones GET,POST,DELETE,PUT mediante sync al seleccionar la entidad y si hay conexión a internet.
+    *Se usará un GW para los SSE que actualizen la DB en RT - una lástima no poder usar los sharedWorkers -
+
+    ------------------------------------
+    
+
+    Será jerarquía basada en componentes, según el plan, se editarán los permisos en el contrato para tener ciertos módulos
+        ->Módulos
+            ->Compra
+            ->Venta
+            ->Productos
+            ->Depósito
+            ->Estadísticas
+            ->Contratos
+            ->Configuración
+            ->Entidades
+            ->Ayuda
+            ->Salir
+
+
+***EL SSE SOLO SUSCRIBIRÁ A LA COLECCIÓN QUE CORRESPONDA SEGÚN MI NIVEL DE AUTORIZACIÓN**
+
+Más adelante, implementar que la persona elija el sector donde trabaja
+esto es para filtrar stock según locación (para esto no hace falta SSE, se va a solicitar la info cuando sea necesaria)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Seguir con clientes y medios de pago
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+Crear una carpeta api, proxy, static y separar redis de los microservicios y ponerlo en bbdd
+
+mover config a api
+mover traefik a proxy
+
+Mover todo al mismo nivel, quedaría api, proxy, static, databases, monitoring
+
+Hacer un algoritmo que escuche al SIGTERM
+
+..
+
+Volver a poner la carga de componentes asíncrona
+
+componente para comprobar compatibilidad de funciones, navegador, etc ..
+componente para limpiar o editar toda la configuración de la aplicación
+componente navegación con permisos
+
+
+Poner botón salir en varios componentes en caso de error
+
+
+Modificar precio, hacer que acepte

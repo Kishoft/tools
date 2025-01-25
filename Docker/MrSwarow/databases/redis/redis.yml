@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+    ######## MQ
+    redis:
+        image: redis
+        networks: 
+            -   backend
+networks:
+    backend:
+        name: backend
+        external: true
