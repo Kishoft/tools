@@ -1,0 +1,7 @@
+services:
+    www:
+        image: php:8.3.15-apache
+        ports: 
+            - 80:80
+        volumes:
+            - ./www:/var/www/html:rw
