@@ -328,7 +328,7 @@
     "tmp-promise": "^3.0.2",
     "to-readable-stream": "^1.0.0",
     "tough-cookie": "^2.5.0",
-    "trim-newlines": "^1.0.0",
+    "trim-newlines": "^3.0.1",
     "trim-repeated": "^1.0.0",
     "tslib": "^1.14.1",
     "tunnel": "^0.0.6",
