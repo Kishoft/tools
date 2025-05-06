@@ -34,7 +34,7 @@
     "buffer-fill": "^1.0.0",
     "buffer-from": "^1.1.1",
     "cacheable-lookup": "^5.0.4",
-    "cacheable-request": "^6.1.0",
+    "cacheable-request": "^10.2.7",
     "camelcase": "^2.1.1",
     "camelcase-keys": "^2.1.0",
     "caseless": "^0.12.0",
