@@ -1,3 +1,6 @@
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+
 #include <WiFi.h>
 #include <BLEDevice.h>
 #include <BLEUtils.h>
@@ -5,27 +8,27 @@
 #include <BLEAdvertisedDevice.h>
 
 // ======== Configuración Wi-Fi ========
-const char* ssid = "Wifi";
-const char* password = "aaaassddd";
+#define ssid = "Wifi";
+#define password = "aaaassddd";
 WiFiServer server(80);
 
 // ======== Configuración BLE ========
-int scanTime = 3;  // duración del escaneo BLE en segundos
+#define scanTime = 3;  // duración del escaneo BLE en segundos
 BLEScan* pBLEScan;
 
 // Nombre que querés detectar (o "" para cualquiera)
-const String TARGET_NAME = "";
+#define TARGET_NAME = "";
 
 // Umbral de señal para considerar cercano
-const int RSSI_THRESHOLD = -80;
+#define RSSI_THRESHOLD = -80;
 
 // Estado de presencia y RSSI
 bool bleNearby = false;
-int bestRSSI = -127;  // valor por defecto (muy lejos)
+#define bestRSSI = -127;  // valor por defecto (muy lejos)
 
 // Temporizador para escaneos
 unsigned long lastScanTime = 0;
-const unsigned long SCAN_INTERVAL = 5000;  // 5 s
+#define SCAN_INTERVAL = 2000;  // 2 s
 
 class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
   void onResult(BLEAdvertisedDevice advertisedDevice) {
@@ -112,4 +115,16 @@ void loop() {
     client.println("}");
     client.stop();
   }
+}
+
+esp_err_t create_task(void){
+  return ESP_OK;
+}
+
+void vTaskBLE(void *parameters){
+
+}
+
+void vTaskWifi(void *parameters){
+
 }
