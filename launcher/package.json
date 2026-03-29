@@ -255,7 +255,7 @@
     "pinkie": "^2.0.4",
     "pinkie-promise": "^2.0.1",
     "pkg-dir": "^4.2.0",
-    "plist": "^3.0.1",
+    "plist": "^3.0.4",
     "prepend-http": "^2.0.0",
     "pretty-bytes": "^1.0.4",
     "pretty-ms": "^7.0.1",
